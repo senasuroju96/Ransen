@@ -1,5 +1,28 @@
 /* RANSEN Digital Marketing Agency Styles - Purple Theme */
 
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #8A2BE2;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.2s ease;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: #6A0DAD;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+}
+
 /* Cursor Glow Effect */
 .cursor-glow {
   position: fixed;
@@ -9,6 +32,22 @@
   background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Hide default cursor on interactive elements */
+button, a, .interactive {
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none;
+  }
+  
+  button, a, .interactive {
+    cursor: pointer;
+  }
 }
 
 /* Typography - Purple Theme */
@@ -122,8 +161,9 @@
   background: white;
   border: 1px solid #e9d5ff;
   border-radius: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 6px rgba(106, 13, 173, 0.05);
+  transform-style: preserve-3d;
 }
 
 .service-card-purple:hover {
@@ -242,6 +282,37 @@ html {
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Magnetic hover effect */
+@keyframes magnetic-pull {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(var(--x), var(--y));
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
 }
 
 /* Prevent text selection on buttons */
