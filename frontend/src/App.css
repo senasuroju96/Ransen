@@ -1,135 +1,168 @@
-/* RANSEN Digital Marketing Agency Styles */
+/* RANSEN Digital Marketing Agency Styles - Purple Theme */
 
-/* Typography - Following Design Guidelines */
-.hero-title {
-  font-family: 'Crimson Text', 'Times New Roman', serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #0f172a;
+/* Cursor Glow Effect */
+.cursor-glow {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.section-title {
-  font-family: 'Crimson Text', 'Times New Roman', serif;
-  font-size: 2.5rem;
+/* Typography - Purple Theme */
+.hero-title-purple {
+  font-size: 4rem;
   font-weight: 700;
-  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-purple-gradient {
+  background: linear-gradient(135deg, #6A0DAD 0%, #8A2BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-title-purple {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #6A0DAD;
+  letter-spacing: -0.01em;
 }
 
 @media (max-width: 768px) {
-  .hero-title {
+  .hero-title-purple {
     font-size: 2.5rem;
   }
   
-  .section-title {
+  .section-title-purple {
     font-size: 2rem;
   }
 }
 
 /* Navigation */
-.nav-link {
+.nav-link-purple {
   font-weight: 500;
-  color: #0f172a;
-  transition: color 0.2s ease;
+  color: #1f2937;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
 }
 
-.nav-link:hover {
-  color: #64748b;
+.nav-link-purple:hover {
+  color: #6A0DAD;
+  background: #f3e8ff;
 }
 
-/* Buttons - Following Design Guidelines */
-.btn-primary {
-  background: #0f172a;
+/* Buttons - Purple Theme */
+.btn-purple {
+  background: linear-gradient(135deg, #6A0DAD 0%, #8A2BE2 100%);
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 12px 24px;
+  border-radius: 9999px;
+  padding: 14px 32px;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(106, 13, 173, 0.3);
 }
 
-.btn-primary:hover {
-  background: #1e293b;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.btn-purple:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(106, 13, 173, 0.4);
 }
 
-.btn-secondary {
-  background: transparent;
-  color: #0f172a;
-  border: 2px solid #0f172a;
-  border-radius: 6px;
-  padding: 10px 22px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: #0f172a;
+.btn-black {
+  background: #000000;
   color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-black:hover {
+  background: #1f2937;
   transform: translateY(-1px);
 }
 
-/* Cards - Following Design Guidelines */
-.service-card {
-  background: #e6e67c;
-  border: none;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Cards - Purple Theme */
+.service-card-purple {
+  background: white;
+  border: 1px solid #e9d5ff;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(106, 13, 173, 0.05);
 }
 
-.service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.service-card-purple:hover {
+  border-color: #c084fc;
+  box-shadow: 0 20px 40px rgba(106, 13, 173, 0.15);
 }
 
-.portfolio-card {
+.portfolio-card-purple {
   background: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.portfolio-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.portfolio-card-purple:hover {
+  box-shadow: 0 20px 50px rgba(106, 13, 173, 0.2);
 }
 
-.testimonial-card {
-  background: #f8fafc;
-  border: none;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.testimonial-card-purple {
+  background: linear-gradient(135deg, #faf5ff 0%, white 100%);
+  border: 1px solid #e9d5ff;
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
-.testimonial-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.testimonial-card-purple:hover {
+  border-color: #c084fc;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(106, 13, 173, 0.12);
 }
 
-.contact-card {
+.contact-card-purple {
   background: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(106, 13, 173, 0.1);
 }
 
-.contact-info-card {
-  background: #e6e67c;
-  border: none;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.contact-info-card-purple {
+  background: linear-gradient(135deg, #faf5ff 0%, white 100%);
+  border: 1px solid #e9d5ff;
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
-.contact-info-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.contact-info-card-purple:hover {
+  border-color: #c084fc;
+  box-shadow: 0 10px 30px rgba(106, 13, 173, 0.15);
+}
+
+/* Form Elements - Purple Theme */
+.input-purple {
+  transition: all 0.2s ease;
+}
+
+.input-purple:focus {
+  border-color: #8A2BE2;
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+  outline: none;
 }
 
 /* Smooth Scrolling */
@@ -137,12 +170,66 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Form Elements */
-input, textarea {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+/* Selection Color */
+::selection {
+  background-color: #8A2BE2;
+  color: white;
 }
 
-input:focus, textarea:focus {
-  border-color: #0f172a;
-  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.6);
+  }
+}
+
+/* Gradient Text Animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Prevent text selection on buttons */
+button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6A0DAD 0%, #8A2BE2 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8A2BE2 0%, #6A0DAD 100%);
 }
