@@ -118,6 +118,27 @@ button, a, .interactive {
   box-shadow: 0 8px 25px rgba(106, 13, 173, 0.4);
 }
 
+.btn-purple-light {
+  background: linear-gradient(135deg, #8A2BE2 0%, #9370DB 100%);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4);
+}
+
+.btn-purple-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(138, 43, 226, 0.6);
+  background: linear-gradient(135deg, #9370DB 0%, #BA55D3 100%);
+}
+
 .btn-white {
   background: white;
   color: #6A0DAD;
@@ -154,6 +175,11 @@ button, a, .interactive {
 .btn-black:hover {
   background: #1f2937;
   transform: translateY(-1px);
+}
+
+/* 3D Perspective */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
 /* Cards - Purple Theme */
