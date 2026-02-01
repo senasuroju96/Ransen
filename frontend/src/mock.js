@@ -8,19 +8,19 @@ export const services = [
     description: "Strategic, performance-driven advertising across Google, Meta, and other major platforms, designed to convert high-intent audiences into leads and sales while maximizing return on ad spend.",
     icon: "Target",
     detailedDescription: "Drive immediate results with data-backed paid advertising campaigns across all major platforms. Our performance marketing experts optimize every dollar spent to deliver measurable ROI.",
-    benefits: [
-      "Advanced audience targeting and segmentation",
-      "A/B testing and creative optimization",
-      "Real-time performance monitoring and adjustment",
-      "Multi-platform campaign management",
-      "Conversion tracking and attribution modeling"
-    ],
-    platforms: ["Google Ads", "Meta Ads", "LinkedIn Ads", "TikTok Ads", "YouTube Ads"],
-    metrics: {
-      avgROI: "320%",
-      avgCPA: "-45%",
-      conversionIncrease: "180%"
-    }
+    benefit1: "Advanced audience targeting and segmentation",
+    benefit2: "A/B testing and creative optimization",
+    benefit3: "Real-time performance monitoring and adjustment",
+    benefit4: "Multi-platform campaign management",
+    benefit5: "Conversion tracking and attribution modeling",
+    platform1: "Google Ads",
+    platform2: "Meta Ads",
+    platform3: "LinkedIn Ads",
+    platform4: "TikTok Ads",
+    platform5: "YouTube Ads",
+    avgROI: "320%",
+    avgCPA: "-45%",
+    conversionIncrease: "180%"
   },
   {
     id: 2,
@@ -29,19 +29,20 @@ export const services = [
     description: "End-to-end social media strategy, content creation, and community management focused on building brand presence, engagement, and long-term audience growth.",
     icon: "Share2",
     detailedDescription: "Build a powerful social media presence that drives engagement and converts followers into customers. Our team handles everything from strategy to daily community management.",
-    benefits: [
-      "Custom content calendars and strategy",
-      "Professional graphic design and video production",
-      "Daily posting and community engagement",
-      "Influencer partnerships and collaborations",
-      "Analytics and performance reporting"
-    ],
-    platforms: ["Instagram", "Facebook", "LinkedIn", "Twitter/X", "TikTok", "YouTube"],
-    metrics: {
-      avgEngagement: "+250%",
-      followerGrowth: "+180%",
-      contentReach: "500K+"
-    }
+    benefit1: "Custom content calendars and strategy",
+    benefit2: "Professional graphic design and video production",
+    benefit3: "Daily posting and community engagement",
+    benefit4: "Influencer partnerships and collaborations",
+    benefit5: "Analytics and performance reporting",
+    platform1: "Instagram",
+    platform2: "Facebook",
+    platform3: "LinkedIn",
+    platform4: "Twitter/X",
+    platform5: "TikTok",
+    platform6: "YouTube",
+    avgEngagement: "+250%",
+    followerGrowth: "+180%",
+    contentReach: "500K+"
   },
   {
     id: 3,
@@ -50,19 +51,19 @@ export const services = [
     description: "Custom-designed, conversion-focused websites built for performance, scalability, and user experience — optimized to support marketing, lead generation, and business growth.",
     icon: "Monitor",
     detailedDescription: "Create stunning, high-converting websites that serve as your digital foundation. We build scalable, SEO-optimized sites that drive results and grow with your business.",
-    benefits: [
-      "Custom responsive design for all devices",
-      "Conversion-focused user experience",
-      "SEO-optimized architecture and code",
-      "Fast loading speeds and performance",
-      "CMS integration and easy content management"
-    ],
-    platforms: ["React", "Next.js", "WordPress", "Webflow", "Shopify"],
-    metrics: {
-      avgLoadTime: "1.2s",
-      conversionRate: "+160%",
-      mobileScore: "98/100"
-    }
+    benefit1: "Custom responsive design for all devices",
+    benefit2: "Conversion-focused user experience",
+    benefit3: "SEO-optimized architecture and code",
+    benefit4: "Fast loading speeds and performance",
+    benefit5: "CMS integration and easy content management",
+    platform1: "React",
+    platform2: "Next.js",
+    platform3: "WordPress",
+    platform4: "Webflow",
+    platform5: "Shopify",
+    avgLoadTime: "1.2s",
+    conversionRate: "+160%",
+    mobileScore: "98/100"
   },
   {
     id: 4,
@@ -71,19 +72,18 @@ export const services = [
     description: "Comprehensive SEO strategies covering technical optimization, content, keywords, and authority building to improve organic visibility, rankings, and qualified traffic.",
     icon: "Search",
     detailedDescription: "Dominate search results with comprehensive SEO strategies that drive sustainable organic growth. We optimize every aspect of your online presence for maximum visibility.",
-    benefits: [
-      "Technical SEO audits and optimization",
-      "Keyword research and content strategy",
-      "On-page and off-page optimization",
-      "Link building and authority development",
-      "Local SEO and Google Business Profile optimization"
-    ],
-    platforms: ["Google Search", "Bing", "Google Business", "Local Directories"],
-    metrics: {
-      avgRankingIncrease: "+35 positions",
-      organicTraffic: "+250%",
-      domainAuthority: "+45 points"
-    }
+    benefit1: "Technical SEO audits and optimization",
+    benefit2: "Keyword research and content strategy",
+    benefit3: "On-page and off-page optimization",
+    benefit4: "Link building and authority development",
+    benefit5: "Local SEO and Google Business Profile optimization",
+    platform1: "Google Search",
+    platform2: "Bing",
+    platform3: "Google Business",
+    platform4: "Local Directories",
+    avgRankingIncrease: "+35 positions",
+    organicTraffic: "+250%",
+    domainAuthority: "+45 points"
   },
   {
     id: 5,
@@ -92,19 +92,19 @@ export const services = [
     description: "High-quality video and visual content that tells your brand story, showcases products or services, and drives engagement across digital platforms.",
     icon: "Video",
     detailedDescription: "Create compelling video content that captivates audiences and drives action. From concept to final edit, we produce professional videos that elevate your brand.",
-    benefits: [
-      "Professional scriptwriting and storyboarding",
-      "High-quality filming and production",
-      "Motion graphics and animation",
-      "Video editing and post-production",
-      "Multi-platform optimization and distribution"
-    ],
-    platforms: ["YouTube", "Instagram Reels", "TikTok", "LinkedIn Video", "Website"],
-    metrics: {
-      avgEngagement: "+340%",
-      watchTime: "75%",
-      conversionLift: "+190%"
-    }
+    benefit1: "Professional scriptwriting and storyboarding",
+    benefit2: "High-quality filming and production",
+    benefit3: "Motion graphics and animation",
+    benefit4: "Video editing and post-production",
+    benefit5: "Multi-platform optimization and distribution",
+    platform1: "YouTube",
+    platform2: "Instagram Reels",
+    platform3: "TikTok",
+    platform4: "LinkedIn Video",
+    platform5: "Website",
+    avgEngagement: "+340%",
+    watchTime: "75%",
+    conversionLift: "+190%"
   },
   {
     id: 6,
@@ -113,19 +113,19 @@ export const services = [
     description: "Custom AI-powered automations for marketing, operations, customer engagement, and analytics — helping businesses save time, reduce costs, and scale efficiently.",
     icon: "Bot",
     detailedDescription: "Leverage cutting-edge AI technology to automate repetitive tasks, enhance customer experiences, and unlock new growth opportunities. Our custom AI solutions transform how you work.",
-    benefits: [
-      "AI chatbots and virtual assistants",
-      "Marketing automation and personalization",
-      "Predictive analytics and insights",
-      "Content generation and optimization",
-      "Process automation and workflow optimization"
-    ],
-    platforms: ["OpenAI", "Claude", "Custom AI Models", "Zapier", "Make.com"],
-    metrics: {
-      timeSaved: "40 hrs/week",
-      costReduction: "-60%",
-      responseTime: "Instant"
-    }
+    benefit1: "AI chatbots and virtual assistants",
+    benefit2: "Marketing automation and personalization",
+    benefit3: "Predictive analytics and insights",
+    benefit4: "Content generation and optimization",
+    benefit5: "Process automation and workflow optimization",
+    platform1: "OpenAI",
+    platform2: "Claude",
+    platform3: "Custom AI Models",
+    platform4: "Zapier",
+    platform5: "Make.com",
+    timeSaved: "40 hrs/week",
+    costReduction: "-60%",
+    responseTime: "Instant"
   },
   {
     id: 7,
@@ -134,19 +134,19 @@ export const services = [
     description: "Dedicated support for inbound inquiries, lead follow-up, appointment booking, and customer care, ensuring fast response times and a seamless customer experience.",
     icon: "Headphones",
     detailedDescription: "Never miss an opportunity with professional business operations support. Our team handles customer interactions, lead management, and operational tasks so you can focus on growth.",
-    benefits: [
-      "24/7 customer support and live chat",
-      "Lead qualification and follow-up",
-      "Appointment scheduling and calendar management",
-      "CRM management and data entry",
-      "Email and phone support services"
-    ],
-    platforms: ["Zendesk", "Intercom", "HubSpot", "Salesforce", "Custom CRM"],
-    metrics: {
-      responseTime: "<5 min",
-      customerSatisfaction: "96%",
-      leadConversion: "+85%"
-    }
+    benefit1: "24/7 customer support and live chat",
+    benefit2: "Lead qualification and follow-up",
+    benefit3: "Appointment scheduling and calendar management",
+    benefit4: "CRM management and data entry",
+    benefit5: "Email and phone support services",
+    platform1: "Zendesk",
+    platform2: "Intercom",
+    platform3: "HubSpot",
+    platform4: "Salesforce",
+    platform5: "Custom CRM",
+    responseTimeValue: "<5 min",
+    customerSatisfaction: "96%",
+    leadConversion: "+85%"
   },
   {
     id: 8,
@@ -155,19 +155,19 @@ export const services = [
     description: "Optimize your content and digital presence for AI-powered search engines and language models like ChatGPT, Claude, and Gemini to increase brand visibility in AI-generated responses.",
     icon: "Sparkles",
     detailedDescription: "Stay ahead of the curve with LLMO strategies that ensure your brand appears in AI-generated answers. As more users rely on AI assistants, being discoverable in LLM responses is critical for modern marketing.",
-    benefits: [
-      "Content optimization for AI model training data",
-      "Brand mention tracking in AI responses",
-      "Structured data and schema markup for AI",
-      "Authority building for AI source selection",
-      "Prompt engineering and AI visibility strategies"
-    ],
-    platforms: ["ChatGPT", "Claude", "Gemini", "Perplexity", "Copilot"],
-    metrics: {
-      aiMentions: "+280%",
-      brandVisibility: "+320%",
-      aiTrafficGrowth: "+150%"
-    }
+    benefit1: "Content optimization for AI model training data",
+    benefit2: "Brand mention tracking in AI responses",
+    benefit3: "Structured data and schema markup for AI",
+    benefit4: "Authority building for AI source selection",
+    benefit5: "Prompt engineering and AI visibility strategies",
+    platform1: "ChatGPT",
+    platform2: "Claude",
+    platform3: "Gemini",
+    platform4: "Perplexity",
+    platform5: "Copilot",
+    aiMentions: "+280%",
+    brandVisibility: "+320%",
+    aiTrafficGrowth: "+150%"
   },
   {
     id: 9,
@@ -176,19 +176,19 @@ export const services = [
     description: "Optimize for answer engines and featured snippets to capture position zero in search results, voice search queries, and AI-powered answer platforms for maximum visibility.",
     icon: "MessageSquare",
     detailedDescription: "Dominate answer engines and capture featured snippets with specialized AEO strategies. As search evolves beyond links to direct answers, AEO ensures your content becomes the authoritative source.",
-    benefits: [
-      "Featured snippet optimization",
-      "Voice search and conversational query optimization",
-      "FAQ schema and structured content",
-      "Answer-focused content strategy",
-      "Knowledge graph optimization"
-    ],
-    platforms: ["Google Featured Snippets", "Alexa", "Siri", "Google Assistant", "Perplexity AI"],
-    metrics: {
-      featuredSnippets: "+200%",
-      voiceSearchShare: "45%",
-      zeroClickVisibility: "+175%"
-    }
+    benefit1: "Featured snippet optimization",
+    benefit2: "Voice search and conversational query optimization",
+    benefit3: "FAQ schema and structured content",
+    benefit4: "Answer-focused content strategy",
+    benefit5: "Knowledge graph optimization",
+    platform1: "Google Featured Snippets",
+    platform2: "Alexa",
+    platform3: "Siri",
+    platform4: "Google Assistant",
+    platform5: "Perplexity AI",
+    featuredSnippets: "+200%",
+    voiceSearchShare: "45%",
+    zeroClickVisibility: "+175%"
   }
 ];
 
