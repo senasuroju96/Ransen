@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import {
   Search, Share2, FileText, Target, Sparkles, Monitor,
-  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle } from
+  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3 } from
 'lucide-react';
 import { services, portfolioItems, testimonials, stats } from '../mock';
 import { Button } from '../components/ui/button';
