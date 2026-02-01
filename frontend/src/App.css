@@ -13,7 +13,7 @@
 
 /* Typography - Purple Theme */
 .hero-title-purple {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -27,19 +27,20 @@
 }
 
 .section-title-purple {
-  font-size: 2.75rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #6A0DAD;
   letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 @media (max-width: 768px) {
   .hero-title-purple {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
   
   .section-title-purple {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 }
 
