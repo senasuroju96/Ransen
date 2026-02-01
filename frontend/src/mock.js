@@ -3,39 +3,45 @@
 export const services = [
   {
     id: 1,
-    title: "Search Engine Optimization",
-    description: "Boost your online visibility with data-driven SEO strategies that drive organic traffic and improve search rankings.",
-    icon: "Search"
+    title: "Paid Media Advertising",
+    description: "Strategic, performance-driven advertising across Google, Meta, and other major platforms, designed to convert high-intent audiences into leads and sales while maximizing return on ad spend.",
+    icon: "Target"
   },
   {
     id: 2,
-    title: "Social Media Marketing",
-    description: "Engage your audience across all platforms with compelling content and strategic campaigns that build brand loyalty.",
+    title: "Social Media Management",
+    description: "End-to-end social media strategy, content creation, and community management focused on building brand presence, engagement, and long-term audience growth.",
     icon: "Share2"
   },
   {
     id: 3,
-    title: "Content Marketing",
-    description: "Create meaningful connections through storytelling that resonates with your audience and drives conversions.",
-    icon: "FileText"
+    title: "Website Design & Development",
+    description: "Custom-designed, conversion-focused websites built for performance, scalability, and user experience — optimized to support marketing, lead generation, and business growth.",
+    icon: "Monitor"
   },
   {
     id: 4,
-    title: "PPC Advertising",
-    description: "Maximize ROI with targeted paid campaigns across Google Ads, social media, and display networks.",
-    icon: "Target"
+    title: "Search Engine Optimization (SEO)",
+    description: "Comprehensive SEO strategies covering technical optimization, content, keywords, and authority building to improve organic visibility, rankings, and qualified traffic.",
+    icon: "Search"
   },
   {
     id: 5,
-    title: "Brand Strategy",
-    description: "Build a powerful brand identity that stands out in the market and connects with your target audience.",
-    icon: "Sparkles"
+    title: "Video Production",
+    description: "High-quality video and visual content that tells your brand story, showcases products or services, and drives engagement across digital platforms.",
+    icon: "Video"
   },
   {
     id: 6,
-    title: "Web Design & Development",
-    description: "Create stunning, high-performing websites that convert visitors into customers with seamless user experiences.",
-    icon: "Monitor"
+    title: "AI Automation",
+    description: "Custom AI-powered automations for marketing, operations, customer engagement, and analytics — helping businesses save time, reduce costs, and scale efficiently.",
+    icon: "Bot"
+  },
+  {
+    id: 7,
+    title: "Business Operations Support",
+    description: "Dedicated support for inbound inquiries, lead follow-up, appointment booking, and customer care, ensuring fast response times and a seamless customer experience.",
+    icon: "Headphones"
   }
 ];
 
@@ -101,22 +107,92 @@ export const testimonials = [
 export const stats = [
   {
     id: 1,
-    value: "500+",
+    value: 500,
+    suffix: "+",
     label: "Projects Delivered"
   },
   {
     id: 2,
-    value: "98%",
+    value: 98,
+    suffix: "%",
     label: "Client Satisfaction"
   },
   {
     id: 3,
-    value: "150+",
+    value: 150,
+    suffix: "+",
     label: "Happy Clients"
   },
   {
     id: 4,
-    value: "50+",
+    value: 50,
+    suffix: "+",
     label: "Industry Awards"
+  }
+];
+
+export const industries = [
+  {
+    id: 1,
+    name: "E-Commerce & Retail",
+    description: "Driving online sales and customer acquisition",
+    icon: "ShoppingBag"
+  },
+  {
+    id: 2,
+    name: "SaaS & Technology",
+    description: "Scaling growth with strategic campaigns",
+    icon: "Laptop"
+  },
+  {
+    id: 3,
+    name: "Healthcare & Wellness",
+    description: "Building trust and patient engagement",
+    icon: "Heart"
+  },
+  {
+    id: 4,
+    name: "Professional Services",
+    description: "Establishing authority and generating leads",
+    icon: "Briefcase"
+  },
+  {
+    id: 5,
+    name: "Real Estate",
+    description: "Converting prospects into property buyers",
+    icon: "Home"
+  },
+  {
+    id: 6,
+    name: "Finance & Insurance",
+    description: "Compliance-friendly growth strategies",
+    icon: "TrendingUp"
+  }
+];
+
+export const process = [
+  {
+    id: 1,
+    step: "01",
+    title: "Discovery & Strategy",
+    description: "We dive deep into your business goals, target audience, and competitive landscape to create a customized digital marketing strategy."
+  },
+  {
+    id: 2,
+    step: "02",
+    title: "Planning & Design",
+    description: "Our team develops detailed campaign plans, creative assets, and technical infrastructure to support your growth objectives."
+  },
+  {
+    id: 3,
+    step: "03",
+    title: "Launch & Optimize",
+    description: "We execute campaigns with precision, continuously monitoring performance and optimizing for maximum ROI."
+  },
+  {
+    id: 4,
+    step: "04",
+    title: "Scale & Grow",
+    description: "As results improve, we scale successful strategies and explore new opportunities to accelerate your business growth."
   }
 ];
