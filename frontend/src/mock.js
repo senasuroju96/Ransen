@@ -314,6 +314,42 @@ export const industries = [
     name: "Finance & Insurance",
     description: "Compliance-friendly growth strategies",
     icon: "TrendingUp"
+  },
+  {
+    id: 7,
+    name: "Education & E-Learning",
+    description: "Increasing enrollment and student engagement",
+    icon: "BookOpen"
+  },
+  {
+    id: 8,
+    name: "Hospitality & Travel",
+    description: "Boosting bookings and guest experiences",
+    icon: "Plane"
+  },
+  {
+    id: 9,
+    name: "Manufacturing & B2B",
+    description: "Lead generation and partner acquisition",
+    icon: "Factory"
+  },
+  {
+    id: 10,
+    name: "Legal Services",
+    description: "Client acquisition and reputation management",
+    icon: "Scale"
+  },
+  {
+    id: 11,
+    name: "Automotive",
+    description: "Driving showroom traffic and online sales",
+    icon: "Car"
+  },
+  {
+    id: 12,
+    name: "Food & Beverage",
+    description: "Building brand loyalty and foot traffic",
+    icon: "UtensilsCrossed"
   }
 ];
 
