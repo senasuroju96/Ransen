@@ -5,7 +5,7 @@ import {
   Search, Share2, Target, Monitor, Video, Bot, Headphones, Sparkles, MessageSquare,
   ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3,
   ShoppingBag, Laptop, Heart, Briefcase, Home as HomeIcon, TrendingUp,
-  Zap, Clock, Award, Users, BookOpen, Plane, Factory, Scale, Car, UtensilsCrossed
+  Zap, Clock, Award, Users
 } from 'lucide-react';
 import { services, portfolioItems, testimonials, stats, industries, process } from '../mock';
 import { Button } from '../components/ui/button';
@@ -29,13 +29,7 @@ const iconMap = {
   Home: HomeIcon,
   TrendingUp: TrendingUp,
   Sparkles: Sparkles,
-  MessageSquare: MessageSquare,
-  BookOpen: BookOpen,
-  Plane: Plane,
-  Factory: Factory,
-  Scale: Scale,
-  Car: Car,
-  UtensilsCrossed: UtensilsCrossed
+  MessageSquare: MessageSquare
 };
 
 // Animated Counter Component
@@ -76,8 +70,6 @@ const AnimatedCounter = ({ end, suffix = "", duration = 2 }) => {
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState("default");
-  const [floatingElements, setFloatingElements] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -90,31 +82,7 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize floating marketing elements on edges only
-  useEffect(() => {
-    const elements = [
-      // Top edge elements
-      { id: 1, type: 'orb', x: 5, y: 15, size: 'small', color: '#8A2BE2' },
-      { id: 2, type: 'orb', x: 95, y: 12, size: 'medium', color: '#6A0DAD' },
-      
-      // Right edge elements
-      { id: 3, type: 'orb', x: 92, y: 35, size: 'small', color: '#9370DB' },
-      { id: 4, type: 'orb', x: 96, y: 60, size: 'medium', color: '#8A2BE2' },
-      { id: 5, type: 'orb', x: 93, y: 85, size: 'small', color: '#6A0DAD' },
-      
-      // Bottom edge elements
-      { id: 6, type: 'orb', x: 70, y: 92, size: 'medium', color: '#9370DB' },
-      { id: 7, type: 'orb', x: 30, y: 95, size: 'small', color: '#8A2BE2' },
-      
-      // Left edge elements
-      { id: 8, type: 'orb', x: 3, y: 40, size: 'medium', color: '#6A0DAD' },
-      { id: 9, type: 'orb', x: 5, y: 70, size: 'small', color: '#9370DB' },
-      { id: 10, type: 'orb', x: 7, y: 90, size: 'medium', color: '#8A2BE2' },
-    ];
-    setFloatingElements(elements);
-  }, []);
-
-  // Mouse move effect with smooth tracking
+  // Mouse move effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -122,10 +90,6 @@ const Home = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  // Cursor followers
-  const cursorX = useSpring(mousePosition.x, { stiffness: 150, damping: 20 });
-  const cursorY = useSpring(mousePosition.y, { stiffness: 150, damping: 20 });
 
   // Auto-scroll to section if coming from service detail page
   useEffect(() => {
@@ -171,23 +135,6 @@ const Home = () => {
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#6A0DAD] to-[#8A2BE2] origin-left z-[100]"
         style={{ scaleX: smoothProgress }}
-      />
-
-      {/* Custom Cursor */}
-      <motion.div
-        className="custom-cursor"
-        style={{
-          x: cursorX,
-          y: cursorY,
-        }}
-      />
-      <motion.div
-        className="custom-cursor-dot"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
       />
 
       {/* Cursor follower effect */}
@@ -264,99 +211,283 @@ const Home = () => {
         </div>
       </motion.nav>
 
-      {/* Hero Section - Light Theme with 3D Bar Graphs */}
-
-      {/* Hero Section - Light Theme with 3D Bar Graphs */}
-      <section id="home" className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden bg-[#ECEC75]">
+      {/* Hero Section */}
+      <section id="home" className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden">
         {/* Animated background elements */}
         <motion.div 
           className="absolute top-20 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"
-          animate={{ x: [0, 30, 0], y: [0, 50, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          animate={{
+            x: [0, 30, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         />
         <motion.div 
           className="absolute bottom-20 left-10 w-96 h-96 bg-violet-200 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-          animate={{ x: [0, -30, 0], y: [0, -50, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          animate={{
+            x: [0, -30, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         />
 
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+        {/* AI Animation Container */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Animated Grid Lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" style={{ zIndex: 1 }}>
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <motion.path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-purple-600"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.3 }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+
+          {/* Floating AI Elements */}
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute"
+              initial={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                scale: 0,
+                opacity: 0
+              }}
+              animate={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                scale: [0, 1, 1, 0],
+                opacity: [0, 0.6, 0.6, 0]
+              }}
+              transition={{
+                duration: Math.random() * 10 + 15,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "easeInOut"
+              }}
             >
-              <motion.h1 
-                className="hero-title-purple mb-6"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <span className="text-purple-gradient">Scale Your Business</span> with Data-Driven Marketing
-              </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-2xl text-gray-700 mb-10 leading-relaxed font-medium"
-              >
-                AI-powered strategies that deliver measurable results. From SEO to paid media, we engineer growth campaigns that convert.
-              </motion.p>
-              
+              <div 
+                className="w-2 h-2 bg-purple-500 rounded-full"
+                style={{
+                  boxShadow: '0 0 10px rgba(138, 43, 226, 0.5)'
+                }}
+              />
+            </motion.div>
+          ))}
+
+          {/* Animated Neural Network Lines */}
+          <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
+            {[...Array(8)].map((_, i) => {
+              const startX = (i * 15) + '%';
+              const endX = ((i + 1) * 15 + Math.random() * 20) + '%';
+              return (
+                <motion.line
+                  key={i}
+                  x1={startX}
+                  y1="20%"
+                  x2={endX}
+                  y2="80%"
+                  stroke="url(#gradient1)"
+                  strokeWidth="1"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ 
+                    pathLength: [0, 1, 0],
+                    opacity: [0, 0.3, 0]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                    ease: "easeInOut"
+                  }}
+                />
+              );
+            })}
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#6A0DAD" stopOpacity="0" />
+                <stop offset="50%" stopColor="#8A2BE2" stopOpacity="1" />
+                <stop offset="100%" stopColor="#6A0DAD" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Pulsing AI Brain Icon */}
+          <motion.div
+            className="absolute right-10 top-1/4 hidden lg:block"
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, 0, -5, 0]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <div className="relative">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="mb-12"
-              >
-                <Button 
-                  onClick={() => scrollToSection('contact')} 
-                  className="btn-purple group"
-                >
-                  Book a Free Consultation
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                </Button>
-              </motion.div>
+                className="absolute inset-0 bg-purple-500 rounded-full blur-2xl"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0.1, 0.3]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <svg width="200" height="200" viewBox="0 0 200 200" className="relative">
+                <motion.circle
+                  cx="100"
+                  cy="100"
+                  r="60"
+                  fill="none"
+                  stroke="url(#brainGradient)"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.circle
+                  cx="100"
+                  cy="100"
+                  r="45"
+                  fill="none"
+                  stroke="url(#brainGradient)"
+                  strokeWidth="2"
+                  strokeDasharray="3 3"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.path
+                  d="M 100 55 Q 120 70 115 90 Q 110 110 100 115 Q 90 110 85 90 Q 80 70 100 55"
+                  fill="url(#brainGradient)"
+                  initial={{ scale: 0.8, opacity: 0.5 }}
+                  animate={{ scale: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <defs>
+                  <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#6A0DAD" />
+                    <stop offset="100%" stopColor="#8A2BE2" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </motion.div>
 
-              {/* Mini stats */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="grid grid-cols-3 gap-8"
+          {/* Binary Rain Effect */}
+          <div className="absolute inset-0 overflow-hidden opacity-5">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-purple-600 font-mono text-xs"
+                style={{ left: `${i * 5}%` }}
+                initial={{ y: -100 }}
+                animate={{ y: window.innerHeight + 100 }}
+                transition={{
+                  duration: Math.random() * 10 + 10,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                  ease: "linear"
+                }}
               >
-                {[
-                  { value: '250%', label: 'Avg Growth' },
-                  { value: '98%', label: 'Satisfaction' },
-                  { value: '500+', label: 'Projects' },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    className="text-center p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-purple-200"
-                  >
-                    <div className="text-3xl font-bold text-purple-600">{stat.value}</div>
-                    <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
-                  </motion.div>
-                ))}
+                {Array.from({ length: 20 }, () => Math.random() > 0.5 ? '1' : '0').join('\n')}
               </motion.div>
-            </motion.div>
-
-            {/* Right - Simple visual representation */}
-            <motion.div 
-              className="relative h-[500px] hidden lg:flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-            >
-              <div className="text-center text-9xl">📊</div>
-            </motion.div>
+            ))}
           </div>
+
+          {/* Animated Rings */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: `${300 + i * 150}px`,
+                height: `${300 + i * 150}px`,
+                border: '1px solid',
+                borderColor: 'rgba(138, 43, 226, 0.2)',
+                borderRadius: '50%',
+                zIndex: 0
+              }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{
+                scale: [0.8, 1.2, 0.8],
+                opacity: [0, 0.3, 0]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                delay: i * 2,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div 
+            className="max-w-4xl"
+            style={{ y: y1, opacity }}
+          >
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="hero-title-purple mb-6"
+            >
+              <span className="text-purple-gradient">Data-Driven Digital</span>
+              <br />
+              <span className="text-black">Marketing</span> for<br />
+              Businesses That Want<br />
+              to Scale.
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl"
+            >
+              Full-funnel digital marketing engineered to drive leads, revenue, and measurable growth.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Button 
+                onClick={() => scrollToSection('contact')} 
+                className="btn-purple group"
+              >
+                Book a Free Consultation
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Scroll indicator */}
@@ -399,41 +530,18 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">
-        {/* Background decoration */}
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <motion.h2 
-              className="section-title-purple mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              Comprehensive Digital Marketing Services
-            </motion.h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              From SEO and paid advertising to AI automation and LLMO, we offer cutting-edge solutions 
-              tailored to accelerate your business growth and dominate your market.
+            <h2 className="section-title-purple mb-4">Our Services</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              Comprehensive digital marketing solutions tailored to your business goals
             </p>
           </motion.div>
 
@@ -447,56 +555,16 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  style={{
-                    transformStyle: "preserve-3d",
-                  }}
-                  onMouseMove={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 10;
-                    const rotateY = (centerX - x) / 10;
-                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-                  }}
+                  whileHover={{ y: -10, scale: 1.02 }}
                 >
-                  <Card className="service-card-purple h-full flex flex-col relative overflow-hidden group">
-                    {/* Animated gradient overlay */}
-                    <motion.div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{
-                        background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(138, 43, 226, 0.1) 0%, transparent 50%)',
-                      }}
-                      onMouseMove={(e) => {
-                        const rect = e.currentTarget.getBoundingClientRect();
-                        const x = ((e.clientX - rect.left) / rect.width) * 100;
-                        const y = ((e.clientY - rect.top) / rect.height) * 100;
-                        e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-                        e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
-                      }}
-                    />
-                    
-                    <div className="p-8 flex-grow relative z-10">
+                  <Card className="service-card-purple h-full flex flex-col">
+                    <div className="p-8 flex-grow">
                       <motion.div 
-                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center mb-6 relative"
-                        whileHover={{ 
-                          rotate: 360,
-                          scale: 1.1
-                        }}
+                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center mb-6"
+                        whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <motion.div
-                          className="absolute inset-0 bg-white rounded-xl"
-                          initial={{ scale: 0 }}
-                          whileHover={{ scale: 1 }}
-                          transition={{ duration: 0.3 }}
-                          style={{ opacity: 0.2 }}
-                        />
-                        <IconComponent className="text-white relative z-10" size={28} />
+                        <IconComponent className="text-white" size={28} />
                       </motion.div>
                       <h3 className="text-xl font-bold mb-3 text-gray-900">
                         {service.title}
@@ -505,25 +573,14 @@ const Home = () => {
                         {service.description}
                       </p>
                     </div>
-                    <div className="px-8 pb-8 relative z-10">
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }} 
-                        whileTap={{ scale: 0.95 }}
-                      >
+                    <div className="px-8 pb-8">
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <Button 
                           onClick={() => navigate(`/services/${service.slug}`)}
-                          className="w-full bg-purple-600 hover:bg-purple-700 text-white relative overflow-hidden group/btn"
+                          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                         >
-                          <motion.span
-                            className="absolute inset-0 bg-gradient-to-r from-purple-400 to-purple-600"
-                            initial={{ x: '-100%' }}
-                            whileHover={{ x: 0 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                          <span className="relative z-10 flex items-center justify-center">
-                            Learn More
-                            <ArrowRight className="ml-2 group-hover/btn:translate-x-1 transition-transform" size={16} />
-                          </span>
+                          Learn More
+                          <ArrowRight className="ml-2" size={16} />
                         </Button>
                       </motion.div>
                     </div>
@@ -536,25 +593,18 @@ const Home = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-        {/* Parallax background elements */}
-        <motion.div
-          style={{ y: y2 }}
-          className="absolute left-0 top-1/4 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-20"
-        />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <h2 className="section-title-purple mb-6">Our Proven Process</h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              A systematic 4-step approach to digital marketing success that delivers consistent, 
-              measurable results for businesses across all industries.
+            <h2 className="section-title-purple mb-4">How We Work</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              Our proven 4-step process for digital marketing success
             </p>
           </motion.div>
 
@@ -570,11 +620,11 @@ const Home = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="relative p-8 rounded-2xl bg-gradient-to-br from-white to-purple-50 border border-purple-100 hover:border-purple-300 transition-all"
+                  className="relative"
                 >
-                  <div className="text-8xl font-bold text-purple-100 mb-4 leading-none">{step.step}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-lg">{step.description}</p>
+                  <div className="text-7xl font-bold text-purple-100 mb-4">{step.step}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
                   
                   {/* Connecting line */}
                   {index < process.length - 1 && (
@@ -594,36 +644,22 @@ const Home = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">
-        <motion.div
-          className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30"
-          animate={{
-            scale: [1, 1.3, 1],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
+        <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <h2 className="section-title-purple mb-6">Industries We Serve</h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              Deep industry expertise across 12+ sectors, delivering specialized digital marketing 
-              strategies that drive growth in your specific market.
+            <h2 className="section-title-purple mb-4">Industries We Serve</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              Specialized expertise across diverse sectors
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industries.map((industry, index) => {
               const IconComponent = iconMap[industry.icon];
               return (
@@ -633,20 +669,16 @@ const Home = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -8, scale: 1.03 }}
+                  whileHover={{ y: -5 }}
                 >
-                  <Card className="industry-card p-6 h-full hover:shadow-2xl transition-all duration-300">
+                  <Card className="industry-card p-6 h-full">
                     <div className="flex items-start space-x-4">
-                      <motion.div 
-                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center flex-shrink-0"
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <IconComponent className="text-white" size={26} />
-                      </motion.div>
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-lg flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="text-white" size={24} />
+                      </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{industry.name}</h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{industry.description}</p>
+                        <p className="text-gray-600 text-sm">{industry.description}</p>
                       </div>
                     </div>
                   </Card>
@@ -658,25 +690,19 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section id="about" className="py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-        <motion.div
-          style={{ y: y1 }}
-          className="absolute right-0 top-1/3 w-72 h-72 bg-purple-100 rounded-full blur-3xl opacity-20"
-        />
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title-purple mb-6">Why RANSEN Digital Media Works?</h2>
-              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                We combine cutting-edge AI technology with proven marketing strategies to deliver 
-                exceptional results. Our data-driven approach ensures every campaign is optimized 
-                for maximum ROI and sustainable growth.
+              <h2 className="section-title-purple mb-6">Why Choose RANSEN?</h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                We're not just another digital marketing agency. We're your strategic partner 
+                in building a powerful online presence that drives real business results.
               </p>
               <div className="space-y-4">
                 {[
@@ -709,46 +735,15 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative group"
+              className="relative"
             >
-              <motion.div
-                className="relative overflow-hidden rounded-2xl"
+              <motion.img 
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
+                alt="Team collaboration" 
+                className="rounded-2xl shadow-2xl w-full"
                 whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
-              >
-                <motion.img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
-                  alt="Team collaboration" 
-                  className="rounded-2xl shadow-2xl w-full"
-                  style={{
-                    transformStyle: "preserve-3d",
-                  }}
-                  whileHover={{ 
-                    rotateY: 5,
-                    rotateX: 5,
-                  }}
-                />
-                {/* Animated border on hover */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl"
-                  style={{
-                    background: 'linear-gradient(45deg, #6A0DAD, #8A2BE2, #6A0DAD)',
-                    backgroundSize: '200% 200%',
-                  }}
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 0.3 }}
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{
-                    backgroundPosition: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }
-                  }}
-                />
-              </motion.div>
+                transition={{ duration: 0.3 }}
+              />
               <motion.div 
                 className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-600 rounded-full opacity-20 blur-2xl"
                 animate={{
@@ -759,18 +754,6 @@ const Home = () => {
                   repeat: Infinity,
                 }}
               />
-              
-              {/* Floating stats badges */}
-              <motion.div
-                className="absolute top-4 right-4 bg-white rounded-lg shadow-xl p-3"
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                <div className="text-2xl font-bold text-purple-600">98%</div>
-                <div className="text-xs text-gray-600">Success Rate</div>
-              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -800,69 +783,27 @@ const Home = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
+                whileHover={{ y: -8 }}
               >
-                <Card 
-                  className="portfolio-card-purple overflow-hidden h-full group cursor-none"
-                  onMouseMove={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 20;
-                    const rotateY = (centerX - x) / 20;
-                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-                  }}
-                >
+                <Card className="portfolio-card-purple overflow-hidden h-full">
                   <div className="relative overflow-hidden">
                     <motion.img 
                       src={item.image} 
                       alt={item.project}
                       className="w-full h-64 object-cover"
-                      whileHover={{ scale: 1.15 }}
-                      transition={{ duration: 0.6 }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.4 }}
                     />
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent"
-                      initial={{ opacity: 0.5 }}
-                      whileHover={{ opacity: 0.8 }}
-                    />
-                    {/* Animated overlay */}
-                    <motion.div
-                      className="absolute inset-0"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.8 }}
-                      style={{
-                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-                      }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent" />
                   </div>
-                  <div className="p-6 relative">
-                    <motion.div 
-                      className="text-sm text-purple-600 font-semibold mb-2"
-                      initial={{ x: -20, opacity: 0 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {item.category}
-                    </motion.div>
+                  <div className="p-6">
+                    <div className="text-sm text-purple-600 font-semibold mb-2">{item.category}</div>
                     <h3 className="text-xl font-bold mb-2 text-gray-900">{item.client}</h3>
                     <p className="text-gray-600 mb-3">{item.project}</p>
-                    <motion.div 
-                      className="flex items-center text-purple-700 font-semibold"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
+                    <div className="flex items-center text-purple-700 font-semibold">
                       <CheckCircle size={18} className="mr-2" />
                       {item.results}
-                    </motion.div>
+                    </div>
                   </div>
                 </Card>
               </motion.div>
@@ -895,67 +836,26 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 viewport={{ once: true }}
-                whileHover={{ 
-                  y: -10,
-                  rotateY: 5,
-                  transition: { duration: 0.3 }
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
+                whileHover={{ y: -5 }}
               >
-                <Card className="testimonial-card-purple h-full relative overflow-hidden group">
-                  {/* Animated gradient background on hover */}
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{
-                      background: 'radial-gradient(circle at 50% 0%, rgba(138, 43, 226, 0.1), transparent 70%)',
-                    }}
-                  />
-                  
-                  <div className="p-6 relative z-10">
-                    {/* Quote icon */}
-                    <motion.div
-                      className="text-6xl text-purple-200 mb-4 font-serif"
-                      initial={{ scale: 0, rotate: -180 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      "
-                    </motion.div>
-                    
+                <Card className="testimonial-card-purple h-full">
+                  <div className="p-6">
                     <p className="text-gray-700 mb-6 leading-relaxed italic">
-                      {testimonial.content}
+                      "{testimonial.content}"
                     </p>
-                    
                     <div className="flex items-center">
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <img 
-                          src={testimonial.avatar} 
-                          alt={testimonial.name}
-                          className="w-12 h-12 rounded-full mr-4 object-cover ring-2 ring-purple-200"
-                        />
-                      </motion.div>
+                      <motion.img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full mr-4 object-cover"
+                        whileHover={{ scale: 1.1 }}
+                      />
                       <div>
                         <div className="font-semibold text-gray-900">{testimonial.name}</div>
                         <div className="text-sm text-gray-600">{testimonial.position}</div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Corner accent */}
-                  <motion.div
-                    className="absolute top-0 right-0 w-20 h-20"
-                    style={{
-                      background: 'linear-gradient(135deg, transparent 50%, rgba(138, 43, 226, 0.1) 50%)',
-                    }}
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ delay: 0.3 }}
-                  />
                 </Card>
               </motion.div>
             ))}
