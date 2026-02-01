@@ -90,19 +90,26 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize floating marketing elements
+  // Initialize floating marketing elements on edges only
   useEffect(() => {
     const elements = [
-      { id: 1, type: 'chart', x: 15, y: 20, icon: 'BarChart3', color: '#8A2BE2' },
-      { id: 2, type: 'growth', x: 80, y: 30, icon: 'TrendingUp', color: '#6A0DAD' },
-      { id: 3, type: 'target', x: 25, y: 70, icon: 'Target', color: '#9370DB' },
-      { id: 4, type: 'sparkle', x: 85, y: 60, icon: 'Sparkles', color: '#8A2BE2' },
-      { id: 5, type: 'users', x: 10, y: 45, icon: 'Users', color: '#6A0DAD' },
-      { id: 6, type: 'dollar', x: 75, y: 80, text: '$', color: '#8A2BE2' },
-      { id: 7, type: 'percent', x: 20, y: 85, text: '%', color: '#9370DB' },
-      { id: 8, type: 'data', x: 90, y: 15, text: '∞', color: '#6A0DAD' },
-      { id: 9, type: 'chart2', x: 45, y: 25, icon: 'BarChart3', color: '#8A2BE2' },
-      { id: 10, type: 'arrow', x: 70, y: 50, text: '↗', color: '#6A0DAD' },
+      // Top edge elements
+      { id: 1, type: 'orb', x: 5, y: 15, size: 'small', color: '#8A2BE2' },
+      { id: 2, type: 'orb', x: 95, y: 12, size: 'medium', color: '#6A0DAD' },
+      
+      // Right edge elements
+      { id: 3, type: 'orb', x: 92, y: 35, size: 'small', color: '#9370DB' },
+      { id: 4, type: 'orb', x: 96, y: 60, size: 'medium', color: '#8A2BE2' },
+      { id: 5, type: 'orb', x: 93, y: 85, size: 'small', color: '#6A0DAD' },
+      
+      // Bottom edge elements
+      { id: 6, type: 'orb', x: 70, y: 92, size: 'medium', color: '#9370DB' },
+      { id: 7, type: 'orb', x: 30, y: 95, size: 'small', color: '#8A2BE2' },
+      
+      // Left edge elements
+      { id: 8, type: 'orb', x: 3, y: 40, size: 'medium', color: '#6A0DAD' },
+      { id: 9, type: 'orb', x: 5, y: 70, size: 'small', color: '#9370DB' },
+      { id: 10, type: 'orb', x: 7, y: 90, size: 'medium', color: '#8A2BE2' },
     ];
     setFloatingElements(elements);
   }, []);
@@ -285,16 +292,23 @@ const Home = () => {
           }}
         />
 
-        {/* Interactive Marketing Elements */}
+        {/* Interactive Floating Orbs on Edges */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {floatingElements.map((element) => {
             const distanceX = mousePosition.x - (window.innerWidth * element.x / 100);
             const distanceY = mousePosition.y - (window.innerHeight * element.y / 100);
             const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            const maxDistance = 300;
+            const maxDistance = 400;
             const influence = Math.max(0, 1 - distance / maxDistance);
-            const moveX = distanceX * influence * 0.3;
-            const moveY = distanceY * influence * 0.3;
+            const moveX = -distanceX * influence * 0.15;
+            const moveY = -distanceY * influence * 0.15;
+
+            const sizeMap = {
+              small: 60,
+              medium: 90,
+              large: 120
+            };
+            const baseSize = sizeMap[element.size] || 60;
 
             return (
               <motion.div
@@ -307,89 +321,84 @@ const Home = () => {
                 animate={{
                   x: moveX,
                   y: moveY,
-                  scale: 1 + influence * 0.5,
                 }}
                 transition={{
                   type: "spring",
-                  stiffness: 150,
-                  damping: 15,
+                  stiffness: 100,
+                  damping: 20,
                 }}
               >
+                {/* Main orb */}
                 <motion.div
                   className="relative"
-                  animate={{
-                    rotate: influence > 0.3 ? [0, 360] : 0,
+                  style={{
+                    width: baseSize,
+                    height: baseSize,
                   }}
-                  transition={{
-                    duration: 2,
-                    ease: "easeInOut",
+                  animate={{
+                    scale: 1 + influence * 0.4,
                   }}
                 >
-                  {element.icon ? (
-                    <motion.div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-2xl"
-                      style={{
-                        background: `linear-gradient(135deg, ${element.color}, ${element.color}dd)`,
-                        backdropFilter: 'blur(10px)',
-                      }}
-                      whileHover={{ scale: 1.3 }}
-                    >
-                      {element.icon === 'BarChart3' && <BarChart3 className="text-white" size={28} />}
-                      {element.icon === 'TrendingUp' && <TrendingUp className="text-white" size={28} />}
-                      {element.icon === 'Target' && <Target className="text-white" size={28} />}
-                      {element.icon === 'Sparkles' && <Sparkles className="text-white" size={28} />}
-                      {element.icon === 'Users' && <Users className="text-white" size={28} />}
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      className="w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-2xl"
-                      style={{
-                        background: `linear-gradient(135deg, ${element.color}, ${element.color}dd)`,
-                        backdropFilter: 'blur(10px)',
-                      }}
-                      whileHover={{ scale: 1.3 }}
-                    >
-                      {element.text}
-                    </motion.div>
-                  )}
-                  
-                  {/* Glow effect */}
+                  {/* Orb body with glassmorphism */}
                   <motion.div
-                    className="absolute inset-0 rounded-2xl"
+                    className="absolute inset-0 rounded-full"
                     style={{
-                      background: `radial-gradient(circle, ${element.color}80, transparent)`,
-                      filter: 'blur(20px)',
+                      background: `radial-gradient(circle at 30% 30%, ${element.color}40, ${element.color}20)`,
+                      backdropFilter: 'blur(8px)',
+                      border: `2px solid ${element.color}30`,
                     }}
                     animate={{
-                      opacity: influence,
-                      scale: 1 + influence,
+                      rotate: influence > 0.3 ? 360 : 0,
+                    }}
+                    transition={{
+                      rotate: { duration: 3, ease: "linear" },
+                    }}
+                  >
+                    {/* Inner glow */}
+                    <motion.div
+                      className="absolute inset-2 rounded-full"
+                      style={{
+                        background: `radial-gradient(circle at center, ${element.color}60, transparent)`,
+                      }}
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </motion.div>
+
+                  {/* Outer glow ring */}
+                  <motion.div
+                    className="absolute -inset-2 rounded-full"
+                    style={{
+                      background: `radial-gradient(circle, ${element.color}20, transparent 70%)`,
+                      filter: 'blur(10px)',
+                    }}
+                    animate={{
+                      opacity: influence * 0.8,
+                      scale: 1 + influence * 0.5,
                     }}
                   />
 
-                  {/* Connecting line to cursor when close */}
-                  {influence > 0.5 && (
-                    <motion.svg
+                  {/* Connecting arc to cursor when close */}
+                  {influence > 0.4 && (
+                    <motion.div
                       className="absolute top-1/2 left-1/2"
                       style={{
-                        width: Math.abs(distanceX),
-                        height: Math.abs(distanceY),
-                        pointerEvents: 'none',
+                        width: 2,
+                        height: Math.abs(distance),
+                        background: `linear-gradient(to bottom, ${element.color}, transparent)`,
+                        transformOrigin: 'top',
+                        transform: `rotate(${Math.atan2(distanceY, distanceX) * 180 / Math.PI + 90}deg)`,
                       }}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: influence }}
-                    >
-                      <motion.line
-                        x1="0"
-                        y1="0"
-                        x2={distanceX}
-                        y2={distanceY}
-                        stroke={element.color}
-                        strokeWidth="2"
-                        strokeDasharray="5,5"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                      />
-                    </motion.svg>
+                      animate={{ opacity: influence * 0.5 }}
+                    />
                   )}
                 </motion.div>
               </motion.div>
@@ -397,36 +406,71 @@ const Home = () => {
           })}
         </div>
 
-        {/* Data Particles */}
+        {/* Cursor Trail Effect */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            left: mousePosition.x,
+            top: mousePosition.y,
+            width: 200,
+            height: 200,
+            marginLeft: -100,
+            marginTop: -100,
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(138, 43, 226, 0.15), transparent 70%)',
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.5, 0, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+          />
+        </motion.div>
+
+        {/* Interactive Grid Points */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(30)].map((_, i) => {
-            const elementX = (i * 3.33) % 100;
-            const elementY = ((i * 7) % 80) + 10;
+          {[...Array(20)].map((_, i) => {
+            // Position points in a grid avoiding center text area
+            const col = i % 5;
+            const row = Math.floor(i / 5);
+            const elementX = 10 + (col * 20);
+            const elementY = 10 + (row * 22);
+            
+            // Skip center area (30-70% width, 30-70% height)
+            if (elementX > 30 && elementX < 70 && elementY > 30 && elementY < 70) {
+              return null;
+            }
+
             const distanceX = mousePosition.x - (window.innerWidth * elementX / 100);
             const distanceY = mousePosition.y - (window.innerHeight * elementY / 100);
             const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            const influence = Math.max(0, 1 - distance / 400);
+            const influence = Math.max(0, 1 - distance / 300);
 
             return (
               <motion.div
-                key={`particle-${i}`}
-                className="absolute w-3 h-3 rounded-full"
+                key={`grid-${i}`}
+                className="absolute w-2 h-2 rounded-full"
                 style={{
                   left: `${elementX}%`,
                   top: `${elementY}%`,
-                  background: 'linear-gradient(135deg, #8A2BE2, #6A0DAD)',
-                  boxShadow: '0 0 10px rgba(138, 43, 226, 0.5)',
+                  background: `radial-gradient(circle, #8A2BE2, #6A0DAD)`,
                 }}
                 animate={{
-                  x: distanceX * influence * 0.2,
-                  y: distanceY * influence * 0.2,
-                  scale: 1 + influence * 2,
-                  opacity: 0.3 + influence * 0.7,
+                  scale: 1 + influence * 3,
+                  opacity: 0.2 + influence * 0.6,
                 }}
                 transition={{
                   type: "spring",
-                  stiffness: 100,
-                  damping: 20,
+                  stiffness: 200,
+                  damping: 25,
                 }}
               />
             );
@@ -642,19 +686,23 @@ const Home = () => {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Instruction hint */}
+          {/* Subtle instruction hint */}
           <motion.div
-            className="absolute top-0 right-0 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
+            className="absolute -top-4 right-0 text-purple-600 text-sm font-medium flex items-center gap-2"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: [0.5, 1, 0.5], y: 0 }}
+            transition={{ 
+              opacity: { duration: 2, repeat: Infinity },
+              y: { duration: 0.5 }
+            }}
           >
             <motion.span
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             >
-              Move your cursor around! 🎯
+              ✨
             </motion.span>
+            Move your cursor
           </motion.div>
 
           <motion.div 
