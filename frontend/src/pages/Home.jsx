@@ -77,6 +77,7 @@ const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
+  const [floatingElements, setFloatingElements] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -88,6 +89,23 @@ const Home = () => {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Initialize floating marketing elements
+  useEffect(() => {
+    const elements = [
+      { id: 1, type: 'chart', x: 15, y: 20, icon: 'BarChart3', color: '#8A2BE2' },
+      { id: 2, type: 'growth', x: 80, y: 30, icon: 'TrendingUp', color: '#6A0DAD' },
+      { id: 3, type: 'target', x: 25, y: 70, icon: 'Target', color: '#9370DB' },
+      { id: 4, type: 'sparkle', x: 85, y: 60, icon: 'Sparkles', color: '#8A2BE2' },
+      { id: 5, type: 'users', x: 10, y: 45, icon: 'Users', color: '#6A0DAD' },
+      { id: 6, type: 'dollar', x: 75, y: 80, text: '$', color: '#8A2BE2' },
+      { id: 7, type: 'percent', x: 20, y: 85, text: '%', color: '#9370DB' },
+      { id: 8, type: 'data', x: 90, y: 15, text: '∞', color: '#6A0DAD' },
+      { id: 9, type: 'chart2', x: 45, y: 25, icon: 'BarChart3', color: '#8A2BE2' },
+      { id: 10, type: 'arrow', x: 70, y: 50, text: '↗', color: '#6A0DAD' },
+    ];
+    setFloatingElements(elements);
+  }, []);
 
   // Mouse move effect with smooth tracking
   useEffect(() => {
@@ -267,10 +285,158 @@ const Home = () => {
           }}
         />
 
+        {/* Interactive Marketing Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {floatingElements.map((element) => {
+            const distanceX = mousePosition.x - (window.innerWidth * element.x / 100);
+            const distanceY = mousePosition.y - (window.innerHeight * element.y / 100);
+            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            const maxDistance = 300;
+            const influence = Math.max(0, 1 - distance / maxDistance);
+            const moveX = distanceX * influence * 0.3;
+            const moveY = distanceY * influence * 0.3;
+
+            return (
+              <motion.div
+                key={element.id}
+                className="absolute"
+                style={{
+                  left: `${element.x}%`,
+                  top: `${element.y}%`,
+                }}
+                animate={{
+                  x: moveX,
+                  y: moveY,
+                  scale: 1 + influence * 0.5,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 15,
+                }}
+              >
+                <motion.div
+                  className="relative"
+                  animate={{
+                    rotate: influence > 0.3 ? [0, 360] : 0,
+                  }}
+                  transition={{
+                    duration: 2,
+                    ease: "easeInOut",
+                  }}
+                >
+                  {element.icon ? (
+                    <motion.div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-2xl"
+                      style={{
+                        background: `linear-gradient(135deg, ${element.color}, ${element.color}dd)`,
+                        backdropFilter: 'blur(10px)',
+                      }}
+                      whileHover={{ scale: 1.3 }}
+                    >
+                      {element.icon === 'BarChart3' && <BarChart3 className="text-white" size={28} />}
+                      {element.icon === 'TrendingUp' && <TrendingUp className="text-white" size={28} />}
+                      {element.icon === 'Target' && <Target className="text-white" size={28} />}
+                      {element.icon === 'Sparkles' && <Sparkles className="text-white" size={28} />}
+                      {element.icon === 'Users' && <Users className="text-white" size={28} />}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      className="w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-2xl"
+                      style={{
+                        background: `linear-gradient(135deg, ${element.color}, ${element.color}dd)`,
+                        backdropFilter: 'blur(10px)',
+                      }}
+                      whileHover={{ scale: 1.3 }}
+                    >
+                      {element.text}
+                    </motion.div>
+                  )}
+                  
+                  {/* Glow effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl"
+                    style={{
+                      background: `radial-gradient(circle, ${element.color}80, transparent)`,
+                      filter: 'blur(20px)',
+                    }}
+                    animate={{
+                      opacity: influence,
+                      scale: 1 + influence,
+                    }}
+                  />
+
+                  {/* Connecting line to cursor when close */}
+                  {influence > 0.5 && (
+                    <motion.svg
+                      className="absolute top-1/2 left-1/2"
+                      style={{
+                        width: Math.abs(distanceX),
+                        height: Math.abs(distanceY),
+                        pointerEvents: 'none',
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: influence }}
+                    >
+                      <motion.line
+                        x1="0"
+                        y1="0"
+                        x2={distanceX}
+                        y2={distanceY}
+                        stroke={element.color}
+                        strokeWidth="2"
+                        strokeDasharray="5,5"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                      />
+                    </motion.svg>
+                  )}
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Data Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(30)].map((_, i) => {
+            const elementX = (i * 3.33) % 100;
+            const elementY = ((i * 7) % 80) + 10;
+            const distanceX = mousePosition.x - (window.innerWidth * elementX / 100);
+            const distanceY = mousePosition.y - (window.innerHeight * elementY / 100);
+            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            const influence = Math.max(0, 1 - distance / 400);
+
+            return (
+              <motion.div
+                key={`particle-${i}`}
+                className="absolute w-3 h-3 rounded-full"
+                style={{
+                  left: `${elementX}%`,
+                  top: `${elementY}%`,
+                  background: 'linear-gradient(135deg, #8A2BE2, #6A0DAD)',
+                  boxShadow: '0 0 10px rgba(138, 43, 226, 0.5)',
+                }}
+                animate={{
+                  x: distanceX * influence * 0.2,
+                  y: distanceY * influence * 0.2,
+                  scale: 1 + influence * 2,
+                  opacity: 0.3 + influence * 0.7,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 20,
+                }}
+              />
+            );
+          })}
+        </div>
+
         {/* AI Animation Container */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 1 }}>
           {/* Animated Grid Lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" style={{ zIndex: 1 }}>
+          <svg className="absolute inset-0 w-full h-full opacity-10">
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <motion.path
