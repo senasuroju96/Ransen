@@ -460,14 +460,14 @@ const Home = () => {
               key={i}
               className="absolute"
               initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
                 scale: 0,
                 opacity: 0
               }}
               animate={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
                 scale: [0, 1, 1, 0],
                 opacity: [0, 0.6, 0.6, 0]
               }}
@@ -642,6 +642,21 @@ const Home = () => {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
+          {/* Instruction hint */}
+          <motion.div
+            className="absolute top-0 right-0 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.5 }}
+          >
+            <motion.span
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Move your cursor around! 🎯
+            </motion.span>
+          </motion.div>
+
           <motion.div 
             className="max-w-4xl"
             style={{ y: y1, opacity }}
