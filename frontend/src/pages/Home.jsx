@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
+import {
   Search, Share2, FileText, Target, Sparkles, Monitor,
-  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle
-} from 'lucide-react';
+  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle } from
+'lucide-react';
 import { services, portfolioItems, testimonials, stats } from '../mock';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -49,7 +49,7 @@ const Home = () => {
     // Mock form submission
     toast({
       title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
+      description: "Thank you for reaching out. We'll get back to you soon."
     });
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
@@ -74,24 +74,24 @@ const Home = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
           {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 space-y-2">
+          {mobileMenuOpen &&
+          <div className="md:hidden py-4 space-y-2">
               <button onClick={() => scrollToSection('home')} className="block w-full text-left px-4 py-2 hover:bg-gray-100">Home</button>
               <button onClick={() => scrollToSection('services')} className="block w-full text-left px-4 py-2 hover:bg-gray-100">Services</button>
               <button onClick={() => scrollToSection('portfolio')} className="block w-full text-left px-4 py-2 hover:bg-gray-100">Portfolio</button>
               <button onClick={() => scrollToSection('about')} className="block w-full text-left px-4 py-2 hover:bg-gray-100">About</button>
               <button onClick={() => scrollToSection('contact')} className="block w-full text-left px-4 py-2 hover:bg-gray-100">Contact</button>
             </div>
-          )}
+          }
         </div>
       </nav>
 
@@ -99,7 +99,7 @@ const Home = () => {
       <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="hero-title mb-6">
+            <h1 className="hero-title !font-['Tahoma'] !font-bold !text-6xl mb-6">
               Transform Your Digital Presence
             </h1>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
@@ -107,17 +107,17 @@ const Home = () => {
               engage audiences, and drive measurable growth in the modern marketplace.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={() => scrollToSection('contact')} 
-                className="btn-primary"
-              >
+              <Button
+                onClick={() => scrollToSection('contact')}
+                className="btn-primary">
+
                 Get Started <ArrowRight className="ml-2" size={20} />
               </Button>
-              <Button 
-                onClick={() => scrollToSection('portfolio')} 
+              <Button
+                onClick={() => scrollToSection('portfolio')}
                 variant="outline"
-                className="btn-secondary"
-              >
+                className="btn-secondary">
+
                 View Our Work
               </Button>
             </div>
@@ -125,14 +125,14 @@ const Home = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
-            {stats.map((stat) => (
-              <div key={stat.id} className="text-center">
+            {stats.map((stat) =>
+            <div key={stat.id} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-[#0f172a] mb-2" style={{ fontFamily: 'Crimson Text, serif' }}>
                   {stat.value}
                 </div>
                 <div className="text-gray-700 font-medium">{stat.label}</div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -163,8 +163,8 @@ const Home = () => {
                       {service.description}
                     </p>
                   </div>
-                </Card>
-              );
+                </Card>);
+
             })}
           </div>
         </div>
@@ -212,11 +212,11 @@ const Home = () => {
               </div>
             </div>
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
-                alt="Team collaboration" 
-                className="rounded-lg shadow-lg w-full"
-              />
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                alt="Team collaboration"
+                className="rounded-lg shadow-lg w-full" />
+
             </div>
           </div>
         </div>
@@ -233,13 +233,13 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {portfolioItems.map((item) => (
-              <Card key={item.id} className="portfolio-card overflow-hidden">
-                <img 
-                  src={item.image} 
-                  alt={item.project}
-                  className="w-full h-64 object-cover"
-                />
+            {portfolioItems.map((item) =>
+            <Card key={item.id} className="portfolio-card overflow-hidden">
+                <img
+                src={item.image}
+                alt={item.project}
+                className="w-full h-64 object-cover" />
+
                 <div className="p-6">
                   <div className="text-sm text-gray-600 mb-2">{item.category}</div>
                   <h3 className="text-xl font-semibold mb-2 text-[#0f172a]">{item.client}</h3>
@@ -250,7 +250,7 @@ const Home = () => {
                   </div>
                 </div>
               </Card>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -266,18 +266,18 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="testimonial-card">
+            {testimonials.map((testimonial) =>
+            <Card key={testimonial.id} className="testimonial-card">
                 <div className="p-6">
                   <p className="text-gray-700 mb-6 leading-relaxed italic">
                     "{testimonial.content}"
                   </p>
                   <div className="flex items-center">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4 object-cover"
-                    />
+                    <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full mr-4 object-cover" />
+
                     <div>
                       <div className="font-semibold text-[#0f172a]">{testimonial.name}</div>
                       <div className="text-sm text-gray-600">{testimonial.position}</div>
@@ -285,7 +285,7 @@ const Home = () => {
                   </div>
                 </div>
               </Card>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -307,52 +307,52 @@ const Home = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Name *
                   </label>
-                  <Input 
+                  <Input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    placeholder="Your name"
-                  />
+                    placeholder="Your name" />
+
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email *
                   </label>
-                  <Input 
+                  <Input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    placeholder="your@email.com"
-                  />
+                    placeholder="your@email.com" />
+
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone
                   </label>
-                  <Input 
+                  <Input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+1 (555) 000-0000"
-                  />
+                    placeholder="+1 (555) 000-0000" />
+
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Message *
                   </label>
-                  <Textarea 
+                  <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    placeholder="Tell us about your project..."
-                  />
+                    placeholder="Tell us about your project..." />
+
                 </div>
                 <Button type="submit" className="btn-primary w-full">
                   Send Message
@@ -445,8 +445,8 @@ const Home = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Home;
