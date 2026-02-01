@@ -78,6 +78,27 @@
   box-shadow: 0 8px 25px rgba(106, 13, 173, 0.4);
 }
 
+.btn-white {
+  background: white;
+  color: #6A0DAD;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.5);
+  background: #f8f9fa;
+}
+
 .btn-black {
   background: #000000;
   color: white;
@@ -152,6 +173,20 @@
 .contact-info-card-purple:hover {
   border-color: #c084fc;
   box-shadow: 0 10px 30px rgba(106, 13, 173, 0.15);
+}
+
+/* Industry Card */
+.industry-card {
+  background: white;
+  border: 1px solid #e9d5ff;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.industry-card:hover {
+  border-color: #c084fc;
+  box-shadow: 0 8px 25px rgba(106, 13, 173, 0.12);
+  transform: translateY(-2px);
 }
 
 /* Form Elements - Purple Theme */
