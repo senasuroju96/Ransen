@@ -264,8 +264,291 @@ const Home = () => {
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section id="home" className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden">
+      {/* Hero Section - Dark Theme with 3D Bar Graphs */}
+      <section id="home" className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+        {/* Animated gradient background */}
+        <motion.div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(106, 13, 173, 0.15) 0%, transparent 50%)',
+          }}
+          animate={{
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Grid overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <div 
+            className="w-full h-full" 
+            style={{
+              backgroundImage: 'linear-gradient(rgba(138, 43, 226, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(138, 43, 226, 0.5) 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+            }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.h1 
+                className="text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Scale Your Business with{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                  Data-Driven Marketing
+                </span>
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl text-gray-300 mb-8 leading-relaxed"
+              >
+                AI-powered strategies that deliver measurable results. From SEO to paid media, 
+                we engineer growth campaigns that convert.
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    onClick={() => scrollToSection('contact')} 
+                    className="btn-purple-light group text-lg px-8 py-6"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    onClick={() => scrollToSection('services')} 
+                    className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 text-lg px-8 py-6 backdrop-blur-sm"
+                  >
+                    View Services
+                  </Button>
+                </motion.div>
+              </motion.div>
+
+              {/* Mini stats */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="grid grid-cols-3 gap-6 mt-12"
+              >
+                {[
+                  { value: '250%', label: 'Avg Growth' },
+                  { value: '98%', label: 'Client Satisfaction' },
+                  { value: '500+', label: 'Projects' },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 + i * 0.1 }}
+                    className="text-center"
+                  >
+                    <div className="text-3xl font-bold text-purple-400">{stat.value}</div>
+                    <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Right - 3D Bar Graphs */}
+            <motion.div 
+              className="relative h-[600px] hidden lg:block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
+              {/* 3D Bar Chart Visualization */}
+              <div className="absolute inset-0 flex items-center justify-center perspective-1000">
+                {[
+                  { height: 60, color: '#FF6B6B', x: -120, y: 50, delay: 0 },
+                  { height: 80, color: '#4ECDC4', x: -60, y: 30, delay: 0.1 },
+                  { height: 95, color: '#45B7D1', x: 0, y: 10, delay: 0.2 },
+                  { height: 75, color: '#FFA07A', x: 60, y: 35, delay: 0.3 },
+                  { height: 88, color: '#98D8C8', x: 120, y: 20, delay: 0.4 },
+                ].map((bar, index) => {
+                  const distanceX = mousePosition.x - (window.innerWidth * 0.7);
+                  const distanceY = mousePosition.y - (window.innerHeight * 0.4);
+                  const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                  const influence = Math.max(0, 1 - distance / 500);
+
+                  return (
+                    <motion.div
+                      key={index}
+                      className="absolute"
+                      style={{
+                        left: `50%`,
+                        top: `50%`,
+                        marginLeft: bar.x,
+                        marginTop: bar.y,
+                      }}
+                      initial={{ opacity: 0, y: 100, rotateX: 45 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        rotateX: 45 + influence * 10,
+                        rotateY: influence * 15,
+                        scale: 1 + influence * 0.2,
+                      }}
+                      transition={{ 
+                        duration: 0.8, 
+                        delay: bar.delay,
+                        rotateX: { type: "spring", stiffness: 100 },
+                        rotateY: { type: "spring", stiffness: 100 },
+                      }}
+                      whileHover={{ 
+                        scale: 1.2,
+                        rotateY: 25,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      {/* 3D Bar */}
+                      <div 
+                        className="relative"
+                        style={{
+                          width: '80px',
+                          height: `${bar.height * 3}px`,
+                          transformStyle: 'preserve-3d',
+                        }}
+                      >
+                        {/* Front face */}
+                        <motion.div
+                          className="absolute inset-0 rounded-t-lg"
+                          style={{
+                            background: `linear-gradient(180deg, ${bar.color}, ${bar.color}dd)`,
+                            boxShadow: `0 0 30px ${bar.color}80`,
+                          }}
+                          animate={{
+                            boxShadow: [
+                              `0 0 30px ${bar.color}80`,
+                              `0 0 50px ${bar.color}`,
+                              `0 0 30px ${bar.color}80`,
+                            ],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay: bar.delay,
+                          }}
+                        />
+                        
+                        {/* Top face */}
+                        <div
+                          className="absolute top-0 left-0 right-0 rounded-lg"
+                          style={{
+                            height: '10px',
+                            background: `linear-gradient(135deg, ${bar.color}ff, ${bar.color}cc)`,
+                            transform: 'rotateX(90deg) translateZ(5px)',
+                          }}
+                        />
+                        
+                        {/* Side face */}
+                        <div
+                          className="absolute top-0 right-0 bottom-0 rounded-r-lg"
+                          style={{
+                            width: '10px',
+                            background: `linear-gradient(90deg, ${bar.color}dd, ${bar.color}99)`,
+                            transform: 'rotateY(90deg) translateZ(75px)',
+                          }}
+                        />
+
+                        {/* Percentage label */}
+                        <motion.div
+                          className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-white font-bold text-lg whitespace-nowrap"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: bar.delay + 0.5 }}
+                        >
+                          {bar.height}%
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Growth arrow */}
+              <motion.div
+                className="absolute top-1/4 left-1/4 text-green-400"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, duration: 0.5 }}
+              >
+                <motion.div
+                  animate={{ 
+                    y: [-5, 5, -5],
+                    rotate: [-5, 5, -5]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="text-6xl"
+                >
+                  📈
+                </motion.div>
+              </motion.div>
+
+              {/* Data points */}
+              {[...Array(15)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full bg-purple-400"
+                  style={{
+                    left: `${20 + Math.random() * 60}%`,
+                    top: `${20 + Math.random() * 60}%`,
+                  }}
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.3, 0.8, 0.3],
+                    y: [0, -20, 0],
+                  }}
+                  transition={{
+                    duration: 3 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                  }}
+                />
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="w-6 h-10 border-2 border-purple-400 rounded-full flex justify-center">
+            <motion.div 
+              className="w-1 h-3 bg-purple-400 rounded-full mt-2"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+        </motion.div>
+      </section>
         {/* Animated background elements */}
         <motion.div 
           className="absolute top-20 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"
