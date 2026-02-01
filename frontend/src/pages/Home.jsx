@@ -960,27 +960,69 @@ const Home = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8 }}
+                style={{
+                  transformStyle: "preserve-3d",
+                }}
               >
-                <Card className="portfolio-card-purple overflow-hidden h-full">
+                <Card 
+                  className="portfolio-card-purple overflow-hidden h-full group cursor-none"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                  }}
+                >
                   <div className="relative overflow-hidden">
                     <motion.img 
                       src={item.image} 
                       alt={item.project}
                       className="w-full h-64 object-cover"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.4 }}
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ duration: 0.6 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent" />
+                    <motion.div 
+                      className="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent"
+                      initial={{ opacity: 0.5 }}
+                      whileHover={{ opacity: 0.8 }}
+                    />
+                    {/* Animated overlay */}
+                    <motion.div
+                      className="absolute inset-0"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: '100%' }}
+                      transition={{ duration: 0.8 }}
+                      style={{
+                        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                      }}
+                    />
                   </div>
-                  <div className="p-6">
-                    <div className="text-sm text-purple-600 font-semibold mb-2">{item.category}</div>
+                  <div className="p-6 relative">
+                    <motion.div 
+                      className="text-sm text-purple-600 font-semibold mb-2"
+                      initial={{ x: -20, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      {item.category}
+                    </motion.div>
                     <h3 className="text-xl font-bold mb-2 text-gray-900">{item.client}</h3>
                     <p className="text-gray-600 mb-3">{item.project}</p>
-                    <div className="flex items-center text-purple-700 font-semibold">
+                    <motion.div 
+                      className="flex items-center text-purple-700 font-semibold"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       <CheckCircle size={18} className="mr-2" />
                       {item.results}
-                    </div>
+                    </motion.div>
                   </div>
                 </Card>
               </motion.div>
@@ -1013,26 +1055,67 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                whileHover={{ 
+                  y: -10,
+                  rotateY: 5,
+                  transition: { duration: 0.3 }
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                }}
               >
-                <Card className="testimonial-card-purple h-full">
-                  <div className="p-6">
+                <Card className="testimonial-card-purple h-full relative overflow-hidden group">
+                  {/* Animated gradient background on hover */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{
+                      background: 'radial-gradient(circle at 50% 0%, rgba(138, 43, 226, 0.1), transparent 70%)',
+                    }}
+                  />
+                  
+                  <div className="p-6 relative z-10">
+                    {/* Quote icon */}
+                    <motion.div
+                      className="text-6xl text-purple-200 mb-4 font-serif"
+                      initial={{ scale: 0, rotate: -180 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      "
+                    </motion.div>
+                    
                     <p className="text-gray-700 mb-6 leading-relaxed italic">
-                      "{testimonial.content}"
+                      {testimonial.content}
                     </p>
+                    
                     <div className="flex items-center">
-                      <motion.img 
-                        src={testimonial.avatar} 
-                        alt={testimonial.name}
-                        className="w-12 h-12 rounded-full mr-4 object-cover"
-                        whileHover={{ scale: 1.1 }}
-                      />
+                      <motion.div
+                        whileHover={{ scale: 1.2, rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <img 
+                          src={testimonial.avatar} 
+                          alt={testimonial.name}
+                          className="w-12 h-12 rounded-full mr-4 object-cover ring-2 ring-purple-200"
+                        />
+                      </motion.div>
                       <div>
                         <div className="font-semibold text-gray-900">{testimonial.name}</div>
                         <div className="text-sm text-gray-600">{testimonial.position}</div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Corner accent */}
+                  <motion.div
+                    className="absolute top-0 right-0 w-20 h-20"
+                    style={{
+                      background: 'linear-gradient(135deg, transparent 50%, rgba(138, 43, 226, 0.1) 50%)',
+                    }}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.3 }}
+                  />
                 </Card>
               </motion.div>
             ))}
