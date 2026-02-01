@@ -5,7 +5,7 @@ import {
   Search, Share2, Target, Monitor, Video, Bot, Headphones, Sparkles, MessageSquare,
   ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3,
   ShoppingBag, Laptop, Heart, Briefcase, Home as HomeIcon, TrendingUp,
-  Zap, Clock, Award, Users
+  Zap, Clock, Award, Users, BookOpen, Plane, Factory, Scale, Car, UtensilsCrossed
 } from 'lucide-react';
 import { services, portfolioItems, testimonials, stats, industries, process } from '../mock';
 import { Button } from '../components/ui/button';
@@ -29,7 +29,13 @@ const iconMap = {
   Home: HomeIcon,
   TrendingUp: TrendingUp,
   Sparkles: Sparkles,
-  MessageSquare: MessageSquare
+  MessageSquare: MessageSquare,
+  BookOpen: Users,
+  Plane: Users,
+  Factory: Users,
+  Scale: Users,
+  Car: Users,
+  UtensilsCrossed: Users
 };
 
 // Animated Counter Component
