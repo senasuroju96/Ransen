@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView, useAnimation } from 'framer-motion';
 import { 
-  Search, Share2, FileText, Target, Sparkles, Monitor,
-  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3
+  Search, Share2, Target, Monitor, Video, Bot, Headphones,
+  ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3,
+  ShoppingBag, Laptop, Heart, Briefcase, Home as HomeIcon, TrendingUp,
+  Zap, Clock, Award, Users
 } from 'lucide-react';
-import { services, portfolioItems, testimonials, stats } from '../mock';
+import { services, portfolioItems, testimonials, stats, industries, process } from '../mock';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
@@ -14,10 +16,52 @@ import { useToast } from '../hooks/use-toast';
 const iconMap = {
   Search: Search,
   Share2: Share2,
-  FileText: FileText,
   Target: Target,
-  Sparkles: Sparkles,
-  Monitor: Monitor
+  Monitor: Monitor,
+  Video: Video,
+  Bot: Bot,
+  Headphones: Headphones,
+  ShoppingBag: ShoppingBag,
+  Laptop: Laptop,
+  Heart: Heart,
+  Briefcase: Briefcase,
+  Home: HomeIcon,
+  TrendingUp: TrendingUp
+};
+
+// Animated Counter Component
+const AnimatedCounter = ({ end, suffix = "", duration = 2 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      let startTime;
+      let animationFrame;
+
+      const animate = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const progress = (currentTime - startTime) / (duration * 1000);
+
+        if (progress < 1) {
+          setCount(Math.floor(end * progress));
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          setCount(end);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(animationFrame);
+    }
+  }, [isInView, end, duration]);
+
+  return (
+    <span ref={ref}>
+      {count}{suffix}
+    </span>
+  );
 };
 
 const Home = () => {
@@ -73,6 +117,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#6A0DAD] to-[#8A2BE2] origin-left z-[100]"
+        style={{ scaleX: smoothProgress }}
+      />
+
       {/* Cursor follower effect */}
       <motion.div
         className="cursor-glow"
@@ -93,8 +143,9 @@ const Home = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <motion.div 
-              className="flex items-center space-x-3"
+              className="flex items-center space-x-3 cursor-pointer"
               whileHover={{ scale: 1.05 }}
+              onClick={() => scrollToSection('home')}
             >
               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                 <BarChart3 className="text-white" size={24} />
@@ -233,6 +284,29 @@ const Home = () => {
         </motion.div>
       </section>
 
+      {/* Stats Section with Animated Counters */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#6A0DAD] to-[#8A2BE2]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.id}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-5xl md:text-6xl font-bold text-white mb-2">
+                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-white/90 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
         <div className="max-w-7xl mx-auto">
@@ -270,7 +344,7 @@ const Home = () => {
                       >
                         <IconComponent className="text-white" size={28} />
                       </motion.div>
-                      <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                      <h3 className="text-xl font-bold mb-3 text-gray-900">
                         {service.title}
                       </h3>
                       <p className="text-gray-600 leading-relaxed">
@@ -285,7 +359,104 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* Process Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="section-title-purple mb-4">How We Work</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              Our proven 4-step process for digital marketing success
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {process.map((step, index) => (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="relative"
+                >
+                  <div className="text-7xl font-bold text-purple-100 mb-4">{step.step}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  
+                  {/* Connecting line */}
+                  {index < process.length - 1 && (
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ duration: 0.8, delay: index * 0.15 + 0.3 }}
+                      viewport={{ once: true }}
+                      className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-purple-300 origin-left"
+                    />
+                  )}
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Industries Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="section-title-purple mb-4">Industries We Serve</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              Specialized expertise across diverse sectors
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {industries.map((industry, index) => {
+              const IconComponent = iconMap[industry.icon];
+              return (
+                <motion.div
+                  key={industry.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <Card className="industry-card p-6 h-full">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-lg flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="text-white" size={24} />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">{industry.name}</h3>
+                        <p className="text-gray-600 text-sm">{industry.description}</p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -302,10 +473,10 @@ const Home = () => {
               </p>
               <div className="space-y-4">
                 {[
-                  { title: "Data-Driven Approach", desc: "Every decision backed by analytics and insights" },
-                  { title: "Creative Excellence", desc: "Award-winning campaigns that stand out" },
-                  { title: "Proven Results", desc: "Track record of delivering measurable growth" },
-                  { title: "Dedicated Support", desc: "Your success is our priority, always" }
+                  { icon: Zap, title: "Lightning-Fast Results", desc: "See measurable improvements in weeks, not months" },
+                  { icon: Award, title: "Award-Winning Team", desc: "Industry-recognized experts with proven track records" },
+                  { icon: Clock, title: "24/7 Support", desc: "Always available when you need us most" },
+                  { icon: Users, title: "Dedicated Account Team", desc: "Personal attention from strategy to execution" }
                 ].map((item, index) => (
                   <motion.div 
                     key={index}
@@ -313,9 +484,11 @@ const Home = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="flex items-start"
+                    className="flex items-start p-4 rounded-lg hover:bg-purple-50 transition-colors"
                   >
-                    <CheckCircle className="text-purple-600 mr-3 flex-shrink-0 mt-1" size={20} />
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <item.icon className="text-white" size={20} />
+                    </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
                       <p className="text-gray-600">{item.desc}</p>
@@ -454,6 +627,45 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#6A0DAD] to-[#8A2BE2] relative overflow-hidden">
+        <motion.div
+          className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+          }}
+        />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to Scale Your Business?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Let's discuss how our data-driven strategies can accelerate your growth and drive measurable results.
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                onClick={() => scrollToSection('contact')} 
+                className="btn-white group text-lg px-8 py-6"
+              >
+                Book Your Free Consultation Now
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={24} />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -601,10 +813,10 @@ const Home = () => {
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-white/80">
-                <li><a href="#services" className="hover:text-white transition-colors">SEO</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">Paid Media</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Social Media</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Content Marketing</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">PPC Advertising</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">SEO</a></li>
+                <li><a href="#services" className="hover:text-white transition-colors">AI Automation</a></li>
               </ul>
             </div>
             <div>
