@@ -104,7 +104,65 @@ export const services = [
     platform5: "Website",
     avgEngagement: "+340%",
     watchTime: "75%",
-    conversionLift: "+190%"
+    conversionLift: "+190%",
+    subServices: [
+      {
+        id: 1,
+        name: "Real Estate Video Production",
+        description: "Cinematic property tours, aerial footage, and neighborhood showcases that help properties sell faster and for higher prices.",
+        features: ["4K Drone Footage", "Virtual Tours", "Property Walkthroughs", "Agent Branding Videos", "Testimonial Videos"],
+        icon: "Home"
+      },
+      {
+        id: 2,
+        name: "Wedding Videography Services",
+        description: "Capture your special day with stunning cinematic wedding films, same-day edits, and highlight reels that you'll treasure forever.",
+        features: ["Full Ceremony Coverage", "Cinematic Highlights", "Drone Aerial Shots", "Same-Day Edits", "4K Ultra HD"],
+        icon: "Heart"
+      },
+      {
+        id: 3,
+        name: "Commercial Drone Services",
+        description: "Professional aerial cinematography for real estate, construction, events, and marketing campaigns.",
+        features: ["Licensed FAA Pilots", "4K/8K Aerial Footage", "Construction Progress Documentation", "Event Coverage", "Inspection Services"],
+        icon: "Plane"
+      },
+      {
+        id: 4,
+        name: "Corporate Video Production",
+        description: "Professional corporate videos including company profiles, training videos, internal communications, and brand documentaries.",
+        features: ["Company Culture Videos", "Training & Onboarding", "Executive Interviews", "Product Demos", "Annual Reports"],
+        icon: "Briefcase"
+      },
+      {
+        id: 5,
+        name: "Social Media Video Content",
+        description: "Engaging short-form video content optimized for Instagram Reels, TikTok, YouTube Shorts, and Facebook.",
+        features: ["15-60 Second Clips", "Vertical Format Optimization", "Trending Sound Integration", "Caption & Graphics", "Multi-Platform Distribution"],
+        icon: "Share2"
+      },
+      {
+        id: 6,
+        name: "Product Video & E-Commerce",
+        description: "High-converting product videos, unboxing experiences, and 360° showcases that drive online sales.",
+        features: ["Product Demonstrations", "360° Views", "Lifestyle Shots", "Amazon A+ Content", "Shoppable Videos"],
+        icon: "ShoppingBag"
+      },
+      {
+        id: 7,
+        name: "Event Coverage & Live Streaming",
+        description: "Multi-camera event coverage, live streaming services, and same-day highlight reels for conferences, concerts, and corporate events.",
+        features: ["Multi-Camera Setup", "Live Streaming", "Same-Day Highlights", "Conference Coverage", "Concert Recording"],
+        icon: "Video"
+      },
+      {
+        id: 8,
+        name: "Animation & Motion Graphics",
+        description: "2D/3D animation, explainer videos, and motion graphics that simplify complex concepts and engage viewers.",
+        features: ["2D/3D Animation", "Explainer Videos", "Logo Animation", "Infographic Videos", "Character Animation"],
+        icon: "Sparkles"
+      }
+    ]
   },
   {
     id: 6,
