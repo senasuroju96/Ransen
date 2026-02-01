@@ -239,6 +239,214 @@ const Home = () => {
           }}
         />
 
+        {/* AI Animation Container */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Animated Grid Lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" style={{ zIndex: 1 }}>
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <motion.path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-purple-600"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.3 }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+
+          {/* Floating AI Elements */}
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute"
+              initial={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                scale: 0,
+                opacity: 0
+              }}
+              animate={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                scale: [0, 1, 1, 0],
+                opacity: [0, 0.6, 0.6, 0]
+              }}
+              transition={{
+                duration: Math.random() * 10 + 15,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "easeInOut"
+              }}
+            >
+              <div 
+                className="w-2 h-2 bg-purple-500 rounded-full"
+                style={{
+                  boxShadow: '0 0 10px rgba(138, 43, 226, 0.5)'
+                }}
+              />
+            </motion.div>
+          ))}
+
+          {/* Animated Neural Network Lines */}
+          <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 2 }}>
+            {[...Array(8)].map((_, i) => {
+              const startX = (i * 15) + '%';
+              const endX = ((i + 1) * 15 + Math.random() * 20) + '%';
+              return (
+                <motion.line
+                  key={i}
+                  x1={startX}
+                  y1="20%"
+                  x2={endX}
+                  y2="80%"
+                  stroke="url(#gradient1)"
+                  strokeWidth="1"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ 
+                    pathLength: [0, 1, 0],
+                    opacity: [0, 0.3, 0]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                    ease: "easeInOut"
+                  }}
+                />
+              );
+            })}
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#6A0DAD" stopOpacity="0" />
+                <stop offset="50%" stopColor="#8A2BE2" stopOpacity="1" />
+                <stop offset="100%" stopColor="#6A0DAD" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Pulsing AI Brain Icon */}
+          <motion.div
+            className="absolute right-10 top-1/4 hidden lg:block"
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, 0, -5, 0]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <div className="relative">
+              <motion.div
+                className="absolute inset-0 bg-purple-500 rounded-full blur-2xl"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0.1, 0.3]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <svg width="200" height="200" viewBox="0 0 200 200" className="relative">
+                <motion.circle
+                  cx="100"
+                  cy="100"
+                  r="60"
+                  fill="none"
+                  stroke="url(#brainGradient)"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.circle
+                  cx="100"
+                  cy="100"
+                  r="45"
+                  fill="none"
+                  stroke="url(#brainGradient)"
+                  strokeWidth="2"
+                  strokeDasharray="3 3"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.path
+                  d="M 100 55 Q 120 70 115 90 Q 110 110 100 115 Q 90 110 85 90 Q 80 70 100 55"
+                  fill="url(#brainGradient)"
+                  initial={{ scale: 0.8, opacity: 0.5 }}
+                  animate={{ scale: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <defs>
+                  <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#6A0DAD" />
+                    <stop offset="100%" stopColor="#8A2BE2" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </motion.div>
+
+          {/* Binary Rain Effect */}
+          <div className="absolute inset-0 overflow-hidden opacity-5">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-purple-600 font-mono text-xs"
+                style={{ left: `${i * 5}%` }}
+                initial={{ y: -100 }}
+                animate={{ y: window.innerHeight + 100 }}
+                transition={{
+                  duration: Math.random() * 10 + 10,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                  ease: "linear"
+                }}
+              >
+                {Array.from({ length: 20 }, () => Math.random() > 0.5 ? '1' : '0').join('\n')}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Animated Rings */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: `${300 + i * 150}px`,
+                height: `${300 + i * 150}px`,
+                border: '1px solid',
+                borderColor: 'rgba(138, 43, 226, 0.2)',
+                borderRadius: '50%',
+                zIndex: 0
+              }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{
+                scale: [0.8, 1.2, 0.8],
+                opacity: [0, 0.3, 0]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                delay: i * 2,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             className="max-w-4xl"
