@@ -5,7 +5,7 @@ import {
   Search, Share2, Target, Monitor, Video, Bot, Headphones, Sparkles, MessageSquare,
   ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3,
   ShoppingBag, Laptop, Heart, Briefcase, Home as HomeIcon, TrendingUp,
-  Zap, Clock, Award, Users
+  Zap, Clock, Award, Users, BookOpen, Plane, Factory, Scale, Car, UtensilsCrossed
 } from 'lucide-react';
 import { services, portfolioItems, testimonials, stats, industries, process } from '../mock';
 import { Button } from '../components/ui/button';
@@ -29,7 +29,13 @@ const iconMap = {
   Home: HomeIcon,
   TrendingUp: TrendingUp,
   Sparkles: Sparkles,
-  MessageSquare: MessageSquare
+  MessageSquare: MessageSquare,
+  BookOpen: BookOpen,
+  Plane: Plane,
+  Factory: Factory,
+  Scale: Scale,
+  Car: Car,
+  UtensilsCrossed: UtensilsCrossed
 };
 
 // Animated Counter Component
@@ -469,9 +475,10 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl"
+              className="text-2xl text-gray-700 mb-10 leading-relaxed max-w-3xl font-medium"
             >
-              Full-funnel digital marketing engineered to drive leads, revenue, and measurable growth.
+              AI-powered digital marketing engineered to drive qualified leads, increase revenue, 
+              and deliver measurable ROI for businesses ready to scale.
             </motion.p>
             
             <motion.div
@@ -530,18 +537,41 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
-        <div className="max-w-7xl mx-auto">
+      <section id="services" className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">
+        {/* Background decoration */}
+        <motion.div
+          className="absolute top-0 right-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="section-title-purple mb-4">Our Services</h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              Comprehensive digital marketing solutions tailored to your business goals
+            <motion.h2 
+              className="section-title-purple mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Comprehensive Digital Marketing Services
+            </motion.h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              From SEO and paid advertising to AI automation and LLMO, we offer cutting-edge solutions 
+              tailored to accelerate your business growth and dominate your market.
             </p>
           </motion.div>
 
@@ -593,18 +623,25 @@ const Home = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        {/* Parallax background elements */}
+        <motion.div
+          style={{ y: y2 }}
+          className="absolute left-0 top-1/4 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-20"
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="section-title-purple mb-4">How We Work</h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              Our proven 4-step process for digital marketing success
+            <h2 className="section-title-purple mb-6">Our Proven Process</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              A systematic 4-step approach to digital marketing success that delivers consistent, 
+              measurable results for businesses across all industries.
             </p>
           </motion.div>
 
@@ -620,11 +657,11 @@ const Home = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="relative"
+                  className="relative p-8 rounded-2xl bg-gradient-to-br from-white to-purple-50 border border-purple-100 hover:border-purple-300 transition-all"
                 >
-                  <div className="text-7xl font-bold text-purple-100 mb-4">{step.step}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  <div className="text-8xl font-bold text-purple-100 mb-4 leading-none">{step.step}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-lg">{step.description}</p>
                   
                   {/* Connecting line */}
                   {index < process.length - 1 && (
@@ -644,22 +681,36 @@ const Home = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-white relative overflow-hidden">
+        <motion.div
+          className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30"
+          animate={{
+            scale: [1, 1.3, 1],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="section-title-purple mb-4">Industries We Serve</h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              Specialized expertise across diverse sectors
+            <h2 className="section-title-purple mb-6">Industries We Serve</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              Deep industry expertise across 12+ sectors, delivering specialized digital marketing 
+              strategies that drive growth in your specific market.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {industries.map((industry, index) => {
               const IconComponent = iconMap[industry.icon];
               return (
@@ -669,16 +720,20 @@ const Home = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -8, scale: 1.03 }}
                 >
-                  <Card className="industry-card p-6 h-full">
+                  <Card className="industry-card p-6 h-full hover:shadow-2xl transition-all duration-300">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-lg flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="text-white" size={24} />
-                      </div>
+                      <motion.div 
+                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center flex-shrink-0"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <IconComponent className="text-white" size={26} />
+                      </motion.div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{industry.name}</h3>
-                        <p className="text-gray-600 text-sm">{industry.description}</p>
+                        <p className="text-gray-600 text-sm leading-relaxed">{industry.description}</p>
                       </div>
                     </div>
                   </Card>
@@ -690,19 +745,25 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section id="about" className="py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        <motion.div
+          style={{ y: y1 }}
+          className="absolute right-0 top-1/3 w-72 h-72 bg-purple-100 rounded-full blur-3xl opacity-20"
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="section-title-purple mb-6">Why Choose RANSEN?</h2>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                We're not just another digital marketing agency. We're your strategic partner 
-                in building a powerful online presence that drives real business results.
+              <h2 className="section-title-purple mb-6">Why RANSEN Digital Media Works?</h2>
+              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                We combine cutting-edge AI technology with proven marketing strategies to deliver 
+                exceptional results. Our data-driven approach ensures every campaign is optimized 
+                for maximum ROI and sustainable growth.
               </p>
               <div className="space-y-4">
                 {[
