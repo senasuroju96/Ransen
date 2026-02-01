@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView, useAnimation } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
-  Search, Share2, Target, Monitor, Video, Bot, Headphones,
+  Search, Share2, Target, Monitor, Video, Bot, Headphones, Sparkles, MessageSquare,
   ArrowRight, Mail, Phone, MapPin, Menu, X, CheckCircle, BarChart3,
   ShoppingBag, Laptop, Heart, Briefcase, Home as HomeIcon, TrendingUp,
   Zap, Clock, Award, Users
@@ -26,7 +27,9 @@ const iconMap = {
   Heart: Heart,
   Briefcase: Briefcase,
   Home: HomeIcon,
-  TrendingUp: TrendingUp
+  TrendingUp: TrendingUp,
+  Sparkles: Sparkles,
+  MessageSquare: MessageSquare
 };
 
 // Animated Counter Component
@@ -76,6 +79,8 @@ const Home = () => {
   const { toast } = useToast();
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Mouse move effect
   useEffect(() => {
@@ -85,6 +90,15 @@ const Home = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Auto-scroll to section if coming from service detail page
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      setTimeout(() => {
+        scrollToSection(location.state.scrollTo);
+      }, 100);
+    }
+  }, [location]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -335,8 +349,8 @@ const Home = () => {
                   viewport={{ once: true }}
                   whileHover={{ y: -10, scale: 1.02 }}
                 >
-                  <Card className="service-card-purple h-full">
-                    <div className="p-8">
+                  <Card className="service-card-purple h-full flex flex-col">
+                    <div className="p-8 flex-grow">
                       <motion.div 
                         className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center mb-6"
                         whileHover={{ rotate: 360 }}
@@ -347,9 +361,20 @@ const Home = () => {
                       <h3 className="text-xl font-bold mb-3 text-gray-900">
                         {service.title}
                       </h3>
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-gray-600 leading-relaxed mb-4">
                         {service.description}
                       </p>
+                    </div>
+                    <div className="px-8 pb-8">
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Button 
+                          onClick={() => navigate(`/services/${service.slug}`)}
+                          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                        >
+                          Learn More
+                          <ArrowRight className="ml-2" size={16} />
+                        </Button>
+                      </motion.div>
                     </div>
                   </Card>
                 </motion.div>
