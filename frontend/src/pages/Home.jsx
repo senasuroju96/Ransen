@@ -76,6 +76,7 @@ const AnimatedCounter = ({ end, suffix = "", duration = 2 }) => {
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorVariant, setCursorVariant] = useState("default");
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -88,7 +89,7 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Mouse move effect
+  // Mouse move effect with smooth tracking
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -96,6 +97,10 @@ const Home = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Cursor followers
+  const cursorX = useSpring(mousePosition.x, { stiffness: 150, damping: 20 });
+  const cursorY = useSpring(mousePosition.y, { stiffness: 150, damping: 20 });
 
   // Auto-scroll to section if coming from service detail page
   useEffect(() => {
@@ -141,6 +146,23 @@ const Home = () => {
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#6A0DAD] to-[#8A2BE2] origin-left z-[100]"
         style={{ scaleX: smoothProgress }}
+      />
+
+      {/* Custom Cursor */}
+      <motion.div
+        className="custom-cursor"
+        style={{
+          x: cursorX,
+          y: cursorY,
+        }}
+      />
+      <motion.div
+        className="custom-cursor-dot"
+        animate={{
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 28 }}
       />
 
       {/* Cursor follower effect */}
@@ -585,16 +607,56 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -10, scale: 1.02 }}
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                  }}
                 >
-                  <Card className="service-card-purple h-full flex flex-col">
-                    <div className="p-8 flex-grow">
+                  <Card className="service-card-purple h-full flex flex-col relative overflow-hidden group">
+                    {/* Animated gradient overlay */}
+                    <motion.div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{
+                        background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(138, 43, 226, 0.1) 0%, transparent 50%)',
+                      }}
+                      onMouseMove={(e) => {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+                        e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+                      }}
+                    />
+                    
+                    <div className="p-8 flex-grow relative z-10">
                       <motion.div 
-                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center mb-6"
-                        whileHover={{ rotate: 360 }}
+                        className="w-14 h-14 bg-gradient-to-br from-[#6A0DAD] to-[#8A2BE2] rounded-xl flex items-center justify-center mb-6 relative"
+                        whileHover={{ 
+                          rotate: 360,
+                          scale: 1.1
+                        }}
                         transition={{ duration: 0.6 }}
                       >
-                        <IconComponent className="text-white" size={28} />
+                        <motion.div
+                          className="absolute inset-0 bg-white rounded-xl"
+                          initial={{ scale: 0 }}
+                          whileHover={{ scale: 1 }}
+                          transition={{ duration: 0.3 }}
+                          style={{ opacity: 0.2 }}
+                        />
+                        <IconComponent className="text-white relative z-10" size={28} />
                       </motion.div>
                       <h3 className="text-xl font-bold mb-3 text-gray-900">
                         {service.title}
@@ -603,14 +665,25 @@ const Home = () => {
                         {service.description}
                       </p>
                     </div>
-                    <div className="px-8 pb-8">
-                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <div className="px-8 pb-8 relative z-10">
+                      <motion.div 
+                        whileHover={{ scale: 1.05 }} 
+                        whileTap={{ scale: 0.95 }}
+                      >
                         <Button 
                           onClick={() => navigate(`/services/${service.slug}`)}
-                          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                          className="w-full bg-purple-600 hover:bg-purple-700 text-white relative overflow-hidden group/btn"
                         >
-                          Learn More
-                          <ArrowRight className="ml-2" size={16} />
+                          <motion.span
+                            className="absolute inset-0 bg-gradient-to-r from-purple-400 to-purple-600"
+                            initial={{ x: '-100%' }}
+                            whileHover={{ x: 0 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                          <span className="relative z-10 flex items-center justify-center">
+                            Learn More
+                            <ArrowRight className="ml-2 group-hover/btn:translate-x-1 transition-transform" size={16} />
+                          </span>
                         </Button>
                       </motion.div>
                     </div>
@@ -796,15 +869,46 @@ const Home = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative group"
             >
-              <motion.img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
-                alt="Team collaboration" 
-                className="rounded-2xl shadow-2xl w-full"
+              <motion.div
+                className="relative overflow-hidden rounded-2xl"
                 whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              />
+                transition={{ duration: 0.4 }}
+              >
+                <motion.img 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" 
+                  alt="Team collaboration" 
+                  className="rounded-2xl shadow-2xl w-full"
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
+                  whileHover={{ 
+                    rotateY: 5,
+                    rotateX: 5,
+                  }}
+                />
+                {/* Animated border on hover */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl"
+                  style={{
+                    background: 'linear-gradient(45deg, #6A0DAD, #8A2BE2, #6A0DAD)',
+                    backgroundSize: '200% 200%',
+                  }}
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 0.3 }}
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{
+                    backgroundPosition: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }
+                  }}
+                />
+              </motion.div>
               <motion.div 
                 className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-600 rounded-full opacity-20 blur-2xl"
                 animate={{
@@ -815,6 +919,18 @@ const Home = () => {
                   repeat: Infinity,
                 }}
               />
+              
+              {/* Floating stats badges */}
+              <motion.div
+                className="absolute top-4 right-4 bg-white rounded-lg shadow-xl p-3"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+              >
+                <div className="text-2xl font-bold text-purple-600">98%</div>
+                <div className="text-xs text-gray-600">Success Rate</div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
