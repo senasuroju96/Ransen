@@ -42,6 +42,37 @@ const ServiceDetail = () => {
   }
 
   const IconComponent = iconMap[service.icon];
+  
+  // Build arrays from flattened structure
+  const benefits = [
+    service.benefit1,
+    service.benefit2,
+    service.benefit3,
+    service.benefit4,
+    service.benefit5
+  ].filter(Boolean);
+  
+  const platforms = [
+    service.platform1,
+    service.platform2,
+    service.platform3,
+    service.platform4,
+    service.platform5,
+    service.platform6
+  ].filter(Boolean);
+  
+  // Build metrics object
+  const metrics = {};
+  Object.keys(service).forEach(key => {
+    if (key.startsWith('avg') || key.endsWith('Time') || key.endsWith('Growth') || 
+        key.endsWith('Reach') || key.endsWith('Increase') || key.endsWith('Score') ||
+        key.endsWith('Traffic') || key.endsWith('Authority') || key.endsWith('Mentions') ||
+        key.endsWith('Visibility') || key.endsWith('Value') || key.endsWith('Satisfaction') ||
+        key.endsWith('Conversion') || key.endsWith('Saved') || key.endsWith('Reduction') ||
+        key.endsWith('Snippets') || key.endsWith('Share')) {
+      metrics[key] = service[key];
+    }
+  });
 
   const scrollToContact = () => {
     navigate('/', { state: { scrollTo: 'contact' } });
@@ -127,7 +158,7 @@ const ServiceDetail = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid md:grid-cols-3 gap-6"
           >
-            {Object.entries(service.metrics).map(([key, value], index) => (
+            {Object.entries(metrics).slice(0, 3).map(([key, value], index) => (
               <motion.div
                 key={key}
                 whileHover={{ y: -5 }}
@@ -159,7 +190,7 @@ const ServiceDetail = () => {
           </motion.div>
 
           <div className="space-y-4">
-            {service.benefits.map((benefit, index) => (
+            {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -30 }}
@@ -199,7 +230,7 @@ const ServiceDetail = () => {
           </motion.div>
 
           <div className="flex flex-wrap justify-center gap-4">
-            {service.platforms.map((platform, index) => (
+            {platforms.map((platform, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8 }}
